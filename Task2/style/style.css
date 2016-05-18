@@ -59,7 +59,7 @@ input[type="submit"] {
 }
 .list-tickets, .detail-ticket, .new-Ticket, .new-comment,
 .registration, .registration-executor, .select-executor, .edit-Ticket {
-   display: block;
+   display: none;
 }
 .list-tickets {
   margin: 20px auto;
@@ -77,4 +77,8 @@ table tr, table th, table td {
 table th {
   background: #2c3e50;
   color: #fff;
+}
+.message {
+  width 100%;
+  text-align: center;
 }

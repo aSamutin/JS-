@@ -1,5 +1,8 @@
+var roles = ["Admin", "Client", "Executor"];
+
 function User(userName) {
   var id, login, role, ticketsId = [];
+  this.ticketsId = [];
   this.id = function(newId) {           //set or get id
     if (!arguments.length) return id;
     this.id = newId;
@@ -16,7 +19,7 @@ function User(userName) {
 }
 
 function Comment() {
-  var id, userId, text;
+  var id, userId, ticketId, text;
   this.id = function(newId) {           //set or get id comment's
     if (!arguments.length) return id;
     this.id = newId;
@@ -25,7 +28,11 @@ function Comment() {
     if (!arguments.length) return userId;
     this.userId = newId;
   };
-  this.text = function(newText) {           //set or get id
+  this.ticketId = function(newId) {
+    if (!arguments.length) return ticketId;
+    this.ticketId = newId;
+  };
+  this.text = function(newText) {
     if (!arguments.length) return text;
     this.text = newText;
   };
@@ -81,11 +88,7 @@ function Ticket() {
 }
 
 if(typeof(Storage) !== "undefined") {
-  var saveUser = function(object) {
-    var sObject = JSON.stringify(object);
-    localStorage.setItem(object.login,sObject);
-  };
-  var saveObgect = function(object) {
+  var saveObject = function(object) {
     var sObject = JSON.stringify(object);
     localStorage.setItem(object.id,sObject);
   };
@@ -96,15 +99,46 @@ if(typeof(Storage) !== "undefined") {
     }
     return null;
   };
-
+//Тестовые данные
   var Andrey = new User("Андрей");
-  Andrey.id(1);
-  Andrey.role("Admin");
+  Andrey.id(Andrey.login);
+  Andrey.role(roles[0]);
   Andrey.addticketsId(45);
   Andrey.addticketsId(48);
-  saveUser(Andrey);
-
-
+  saveObject(Andrey);
+  var Vova = new User("Вова");
+  Vova.id(Vova.login);
+  Vova.role(roles[2]);
+  Vova.addticketsId(45);
+  saveObject(Vova);
+  var ticket1 = new Ticket();
+  ticket1.id(45);
+  ticket1.executorId(Andrey.login);
+  ticket1.clientId(Vova.login);
+  ticket1.description("Настроить рабочий стол");
+  ticket1.priority("Medium");
+  ticket1.estimated(0);
+  ticket1.deadline("01.01.2001");
+  ticket1.percentReady(45);
+  ticket1.addCommentId(222);
+  ticket1.addCommentId(22);
+  saveObject(ticket1);
+  var ticket2 = new Ticket();
+  ticket2.id(48);
+  ticket2.executorId(Andrey.login);
+  ticket2.clientId(Vova.login);
+  ticket2.description("Удалить фон");
+  ticket2.priority("Medium");
+  ticket2.estimated(0);
+  ticket2.deadline("01.02.2001");
+  ticket2.percentReady(50);
+  saveObject(ticket2);
+  var comment1 = new Comment();
+  comment1.id(222);
+  comment1.userId(Andrey.login);
+  comment1.ticketId(45);
+  comment1.text("Просмотрел html код удалил лишнее");
+  saveObject(comment1);
 } else {
   alert("Sorry! No Web Storage support..");
 }
