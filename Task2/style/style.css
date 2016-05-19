@@ -1,9 +1,18 @@
-form, .list-tickets, .detail-ticket {
-    margin: 200px auto;
+form, .list-tickets, .detail-ticket, .comment{
+    margin: 10px auto;
     padding: 20px;
     width: 500px;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
+}
+form[name="authorization"]{
+  margin-top: 200px;
+}
+ .comment {
+   margin: 10px auto;
+}
+.new-comment {
+  margin-top: 10px;
 }
 .list-tickets, .detail-ticket {
   width: 95%;
@@ -37,7 +46,7 @@ textarea {
 
 input[type="submit"] {
     display: inline-block;
-    margin: 0 5px;
+    margin: 10px 44%;
     padding: 6px 15px;
     width: auto;
     border: none;
@@ -57,8 +66,8 @@ input[type="submit"] {
 .half-width select {
     width: 80%;
 }
-.list-tickets, .detail-ticket, .new-Ticket, .new-comment,
-.registration, .registration-executor, .select-executor, .edit-Ticket {
+.list-tickets, .detail-ticket, .new-ticket, .new-comment,
+.registration, .registration-executor, .select-executor, .edit-ticket {
    display: none;
 }
 .list-tickets {

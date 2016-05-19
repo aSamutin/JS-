@@ -5,10 +5,9 @@
     <title>Система учета заявок</title>
     <link rel="stylesheet" href="style/style.css">
     <script src="script/script.js"></script>
-
   </head>
   <body>
-    <div class="autorization">
+    <div class="authorization">
       <form action="javascript:void(0);" method="get" name="authorization">
         <h2>Авторизация</h2>
         <label>Пользователь<br>
@@ -28,14 +27,14 @@
           <th>Estimated</th>
           <th>Deadline</th>
           <th>Готовность (%)</th>
+          <th>Статус</th>
         </tr>
       </table>
-      <input type="submit" value="Создать заявку" id="create-ticket">
+      <input type="submit" value="Создать заявку" id="openCreateTicket">
     </div>
-
     <div class="detail-ticket">
-      <table class="detail">
-        <caption><h2>Заявка №</h2><caption>
+      <table>
+        <caption><h2>Заявка № <span><span></h2><caption>
         <tr>
           <th>Клиент</th>
           <th>Исполнитель</th>
@@ -44,29 +43,85 @@
           <th>Estimated</th>
           <th>Deadline</th>
           <th>Готовность (%)</th>
+          <th>Статус</th>
         </tr>
+        <tr class="elem"></tr>
       </table>
+      <input type="submit" value="Изменить заявку" id="openEditTicket">
       <div class="comments">
+        <h2>Комментарии</h2>
+        <div class="comments">
+        </div>
+      </div>
+      <input type="submit" value="Добавить комментарий" id="openCreateComment">
+      <div class="new-comment">
+          <form action="javascript:void(0);" method="get" name="new-comment" >
+            <h2>Добавление комментария</h2>
+            <label>Комментарий
+              <textarea name="comment" rows="5" placeholder="Текст сообщения"></textarea>
+            </label>
+            <input type="submit" value="Добавить" id="addComment">
+          </form>
       </div>
     </div>
+    <div class="edit-ticket">
+      <form action="javascript:void(0);" method="get" name="edit-ticket">
+        <h2>Изменение заявки</h2>
+        <div class="half-width">
+          <label> Статус
+            <select name="status">
+              <option value="Open">Open</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </label>
+        </div>
+        <div class="half-width estimated">
+          <label>Estimated
+            <input type="text" name="estimated">
+          </label>
+        </div>
+        <div class="half-width deadline">
+          <label>deadline
+            <input type="date" name="deadline">
+          </label>
+        </div>
+        <div class="half-width percent">
+          <label>готовность (%)
+            <input type="number" name="percent" max="100" min="0" step="1" value="0">
+          </label>
+        </div>
+        <input type="submit" value="Назначить исполнителя" id="openSelectExecutor">
+        <input type="submit" value="Сохранить изменения" id="saveEdit">
+      </form>
+    </div>
+    <div class="select-executor">
+      <form action="javascript:void(0);" method="get" name="select-executor">
+        <h2>Выбор исполнителя</h2>
+        <select name="executors">
+          <option value="Андрей">Андрей</option>
+          <option>Исполнитель№2</option>
+          <option>Исполнитель№3</option>
+          <option>Исполнитель№4</option>
+        </select>
+        <input type="submit" id="selectExecutor" value="Выбрать">
+      </form>
+    </div>
 
-    <div class="new-Ticket">
-         <form action="javascript:void(0);" method="get" name="createTicket">
+    <div class="new-ticket">
+         <form action="javascript:void(0);" method="get" name="new-ticket">
              <h2>Создание заявки</h2>
              <div class="half-width">
                <label> Клиент
                  <select name="client">
-                   <option>Клиент№1</option>
+                   <option value="Вова">Вова</option>
                    <option>Клиент№2</option>
-                   <option>Клиент№3</option>
-                   <option>Клиент№4</option>
                  </select>
                </label>
              </div>
              <div class="half-width">
                <label> Исполнитель
                  <select name="executor">
-                   <option>Исполнитель№1</option>
+                   <option value="Андрей">Андрей</option>
                    <option>Исполнитель№2</option>
                    <option>Исполнитель№3</option>
                    <option>Исполнитель№4</option>
@@ -78,9 +133,9 @@
             </label>
              <label> Приоритет
                <select name="priority">
-                 <option>High</option>
-                 <option selected>Medium</option>
-                 <option>Low</option>
+                 <option value="High">High</option>
+                 <option selected value="Medium">Medium</option>
+                 <option value="Low">Low</option>
                </select>
              </label>
              <label>Estimated
@@ -96,98 +151,33 @@
                  <input type="number" name="percent" max="100" min="0" step="1" value="0">
                </label>
              </div>
-             <input type="submit" value="Создать">
+             <label> Статус
+               <select name="status">
+                 <option value="Open">Open</option>
+                 <option value="Closed">Close</option>
+               </select>
+             </label>
+             <input type="submit" value="Создать" id="addTicket">
          </form>
       </div>
 
-      <div class="new-comment">
-          <form action="javascript:void(0);" method="get" >
-            <h2>Создание комментария</h2>
-            <label>Комментарий
-              <textarea name="comment" rows="5"></textarea>
+        <div class="registration">
+          <form action="javascript:void(0);" method="get" name="registration">
+            <h2>Регистрация</h2>
+            <label>Логин
+              <input type="text" name="new-user">
             </label>
-            <input type="submit" value="Создать">
+            <input type="submit" id="addUser" value="Зарегистрироваться">
           </form>
-      </div>
-      <div class="registration">
-        <form action="javascript:void(0);" method="get" name="registration">
-          <h2>Регистрация</h2>
-          <label>Логин
-            <input type="text" name="new-user">
-          </label>
-          <input type="submit" id="regist" value="Зарегистрироваться">
-        </form>
-      </div>
-      <div class="registration-executor">
-        <form action="javascript:void(0);" method="get" name="registration-exec">
-          <h2>Регистрация исполнителя</h2>
-          <label>Логин
-            <input type="text" name="new-exec">
-          </label>
-          <input type="submit" id="regist-exec" value="Зарегистрироваться">
-        </form>
-      </div>
-      <div class="select-executor">
-        <form action="javascript:void(0);" method="get" name="select-executor">
-          <h2>Выбор исполнителя</h2>
-          <select name="executors">
-            <option>Исполнитель№1</option>
-            <option>Исполнитель№2</option>
-            <option>Исполнитель№3</option>
-            <option>Исполнитель№4</option>
-          </select>
-          <input type="submit" id="select-exec" value="Выбрать">
-        </form>
-      </div>
-      <div class="edit-Ticket">
-           <form action="javascript:void(0);" method="get" name="editTicket">
-               <h2>Изменение заявки</h2>
-               <div class="half-width">
-                 <label> Клиент
-                   <select name="client">
-                     <option>Клиент№1</option>
-                     <option>Клиент№2</option>
-                     <option>Клиент№3</option>
-                     <option>Клиент№4</option>
-                   </select>
-                 </label>
-               </div>
-               <div class="half-width">
-                 <label> Исполнитель
-                   <select name="executor">
-                     <option>Исполнитель№1</option>
-                     <option>Исполнитель№2</option>
-                     <option>Исполнитель№3</option>
-                     <option>Исполнитель№4</option>
-                   </select>
-                 </label>
-               </div>
-               <label>Описание
-                 <textarea name="details" rows="5"></textarea>
-              </label>
-               <label> Приоритет
-                 <select name="priority">
-                   <option>High</option>
-                   <option selected>Medium</option>
-                   <option>Low</option>
-                 </select>
-               </label>
-               <label>Estimated
-                 <input type="text" name="estimated">
-               </label>
-               <div class="half-width">
-                 <label>deadline
-                  <input type="date" name="deadline">
-                </label>
-               </div>
-
-               <div class="half-width">
-                 <label>готовность (%)
-                   <input type="number" name="percent" max="100" min="0" step="1" value="0">
-                 </label>
-               </div>
-               <input type="submit" value="Сохранить изменения">
-           </form>
+        </div>
+        <div class="registration-executor">
+          <form action="javascript:void(0);" method="get" name="registration-executor">
+            <h2>Регистрация исполнителя</h2>
+            <label>Логин
+              <input type="text" name="new-executor">
+            </label>
+            <input type="submit" id="addExecutor" value="Зарегистрироваться">
+          </form>
         </div>
         <script src="script/workflow.js"></script>
   </body>
