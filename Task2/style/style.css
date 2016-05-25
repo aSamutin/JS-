@@ -46,7 +46,7 @@ textarea {
 
 input[type="submit"] {
     display: inline-block;
-    margin: 10px 44%;
+    margin: 0;
     padding: 6px 15px;
     width: auto;
     border: none;
@@ -90,4 +90,7 @@ table th {
 .message {
   width 100%;
   text-align: center;
+}
+#openCreateComment, #addTicket {
+   margin: 10px 43%;;
 }
