@@ -1,0 +1,28 @@
+{
+  "name": "People",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "login": {
+      "type": "string"
+    },
+    "ticketsId": {
+      "type": [
+        "string"
+      ]
+    },
+    "role": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
