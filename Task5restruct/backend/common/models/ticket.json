@@ -1,0 +1,48 @@
+{
+  "name": "Ticket",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "executorId": {
+      "type": "string",
+      "required": true
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "estimated": {
+      "type": "number"
+    },
+    "deadline": {
+      "type": "date"
+    },
+    "percentReady": {
+      "type": "number"
+    },
+    "commentId": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,89 @@
+<div class="list-tickets">
+  <input type="submit" value="Создать исполнителя" id="openCreateExecutor">
+  <input type="submit" value="Создать заявку" id="openCreateTicket">
+  <div class="filter">
+    <form action="javascript:void(0);" method="get" name="filter">
+      <div class="half-width">
+        <label> Статус
+          <select name="status">
+            <option value="All">All</option>
+            <option value="Open">Open</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </label>
+      </div>
+      <div class="half-width">
+        <label> Клиент
+          <select name="client">
+            <option value="All">All</option>
+              <% for( var i = 0; i < usersList.length; i++) {%>
+                  <option value="<%=usersList[i]%>"><%=usersList[i]%></option>
+              <% }; %>
+          </select>
+        </label>
+      </div>
+      <input type="submit" value="Показать" id="filter">
+    </form>
+  </div>
+
+  <div class="search">
+    <form action="javascript:void(0);" method="get" name="search">
+      <input type="number" name="search" placeholder="поиск по заявкам">
+      <input type="submit" id="find" value="Найти">
+    </form>
+  </div>
+  <div class="filterForm"></div>
+    <table>
+        <caption><h2>Список заявок</h2><caption>
+        <thead>
+            <tr class="headSort">
+                <th>Номер заявки</th>
+                <th>Клиент</th>
+                <th>Исполнитель</th>
+                <th>Описание</th>
+                <th>Приоритет</th>
+                <th>Estimated</th>
+                <th>Deadline</th>
+                <th>Готовность(%)</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+           <% if (list.length != 0) {%>
+             <% for( var i = 0; i < list.length; i++) {%>
+                <tr class="line" data-id="<%= list[i].id %>" data-comments="<%= list[i].commentId %>">
+                    <td>
+                        <%=list[i].id%>
+                    </td>
+                    <td>
+                        <%=list[i].clientId%>
+                    </td>
+                    <td>
+                        <%=list[i].executorId%>
+                    </td>
+                    <td>
+                        <%=list[i].description%>
+                    </td>
+                    <td>
+                        <%=list[i].priority%>
+                    </td>
+                    <td>
+                        <%=list[i].estimated%>
+                    </td>
+                    <td>
+                        <%=list[i].deadline%>
+                    </td>
+                    <td>
+                        <%=list[i].percentReady%>
+                    </td>
+                    <td>
+                        <%=list[i].status%>
+                    </td>
+                </tr>
+            <% }; %>
+          <% } else { %>
+            <tr><td colspan="9" align="center">Нет заявок</td></tr>
+          <% }; %>
+        </tbody>
+      </table>
+</div>
