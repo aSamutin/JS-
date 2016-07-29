@@ -32,7 +32,7 @@ module.exports = {
       return promise(
         $.ajax({
           type: "GET",
-          url: "http://0.0.0.0:3000/api/People",
+          url: "/api/People",
         })
        );
      },
@@ -40,7 +40,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "GET",
-           url: "http://0.0.0.0:3000/api/People?filter[where][login]="+login,
+           url: "/api/People?filter[where][login]="+login,
          })
         );
       },
@@ -48,7 +48,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "GET",
-           url: "http://0.0.0.0:3000/api/Tickets?filter[where][id]="+ticketId,
+           url: "/api/Tickets?filter[where][id]="+ticketId,
          })
        );
      },
@@ -56,7 +56,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "GET",
-           url: "http://0.0.0.0:3000/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}",
+           url: "/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}",
          })
        );
      },
@@ -64,7 +64,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "GET",
-           url: "http://0.0.0.0:3000/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}",
+           url: "/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}",
          })
        );
      },
@@ -72,7 +72,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "POST",
-           url: "http://0.0.0.0:3000/api/People" ,
+           url: "/api/People" ,
            data: newUser
          }).done(function(msg){
            alert("Новый клиент зарегистрирован");
@@ -84,7 +84,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "PUT",
-           url: "http://0.0.0.0:3000/api/People" ,
+           url: "/api/People" ,
            data: newUser
          }).done(function(msg){
            alert("Пользователь изменен");
@@ -95,7 +95,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "POST",
-           url: "http://0.0.0.0:3000/api/Tickets" ,
+           url: "/api/Tickets" ,
            data: newTicket
          }).done(function(msg){
            alert("Новая заявка");
@@ -106,7 +106,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "PUT",
-           url: "http://0.0.0.0:3000/api/Tickets" ,
+           url: "/api/Tickets" ,
            data: newTicket
          }).done(function(msg){
            alert("Заявка изменена");
@@ -117,7 +117,7 @@ module.exports = {
        return promise(
          $.ajax({
            type: "POST",
-           url: "http://0.0.0.0:3000/api/Comments" ,
+           url: "/api/Comments" ,
            data: newComment
          }).done(function(msg){
            alert("Новая коммент добавлен");

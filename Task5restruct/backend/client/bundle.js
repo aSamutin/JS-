@@ -44,17 +44,19 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var router = __webpack_require__(1);
-	var config = __webpack_require__(2);
+	__webpack_require__(1);
+	var router = __webpack_require__(5);
+	var config = __webpack_require__(6);
 
-	var AuthView = __webpack_require__(4);
-	var TaskListView = __webpack_require__(11);
-	var TaskView = __webpack_require__(13);
-	var TaskCreateView = __webpack_require__(17);
-	var ExecutorRegView = __webpack_require__(19);
-	var ClientRegView = __webpack_require__(21);
-	var TaskEditView = __webpack_require__(23);
-	var ExecutorSelView = __webpack_require__(25);
+
+	var AuthView = __webpack_require__(8);
+	var TaskListView = __webpack_require__(15);
+	var TaskView = __webpack_require__(17);
+	var TaskCreateView = __webpack_require__(21);
+	var ExecutorRegView = __webpack_require__(23);
+	var ClientRegView = __webpack_require__(25);
+	var TaskEditView = __webpack_require__(27);
+	var ExecutorSelView = __webpack_require__(29);
 
 	router.addView('auth', AuthView, true);
 	router.addView('task-list', TaskListView);
@@ -69,7 +71,355 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var config = __webpack_require__(2);
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(2);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./style.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "form, .list-tickets, .detail-ticket, .comment{\n    margin: 10px auto;\n    padding: 20px;\n    width: 500px;\n    border-radius: 10px;\n    box-shadow: 0 0 10px #ccc;\n}\nform[name=\"authorization\"]{\n  margin-top: 200px;\n}\nform[name=\"search\"]{\n  width: 30%;\n  float: right;\n}\nform[name=\"filter\"]{\n  width: 60%;\n  float: left;  \n}\n .comment {\n   margin: 10px auto;\n}\n.new-comment {\n  margin-top: 10px;\n}\n.list-tickets, .detail-ticket {\n  width: 95%;\n  margin: 10px auto;\n  min-height: 200px;\n}\n\nh2 {\n    text-align: center;\n    margin:0 0 10px 0;\n}\n\nlabel {\n    display: block;\n    margin-bottom: 5px;\n}\n\ninput[type=\"text\"], select, input[type=\"date\"], input[type=\"number\"] {\n    margin-bottom: 10px;\n    padding: 2px 5px;\n    width: 95%;\n    height: 24px;\n    border: 1px solid #ccc;\n    border-radius: 5px;\n}\ntextarea {\n  width: 95%;\n  padding: 5px;\n  margin-bottom: 10px;\n}\n\ninput[type=\"submit\"] {\n    display: inline-block;\n    margin: 0;\n    padding: 6px 15px;\n    width: auto;\n    border: none;\n    border-radius: 5px;\n    background: #2c3e50;\n    color: #fff;\n\n}\n\n.half-width {\n    display: inline-block;\n    margin-right: -4px;\n    width: 50%;\n}\n\n.half-width input,\n.half-width select {\n    width: 80%;\n}\n.list-tickets, .detail-ticket, .new-ticket, .new-comment,\n.registration, .registration-executor, .select-executor, .edit-ticket {\n   display: block;\n}\n.list-tickets {\n  margin: 20px auto;\n  width: 90%;\n}\ntable {\n  width: 100%;\n  border-collapse: collapse;\n  margin-bottom: 20px;\n}\ntable tr, table th, table td {\n  border: 1px solid;\n  padding: 5px;\n}\ntable th {\n  background: #2c3e50;\n  color: #fff;\n}\n.message {\n  width: 100%;\n  text-align: center;\n}\n#openCreateComment, #addTicket {\n   margin: 10px 43%;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var config = __webpack_require__(6);
 
 	var views = {};
 	var Router = {};
@@ -96,10 +446,10 @@
 
 
 /***/ },
-/* 2 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(3);
+	var $ = __webpack_require__(7);
 
 	module.exports = {
 	    user: null,
@@ -112,11 +462,12 @@
 
 
 /***/ },
-/* 3 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v3.0.0
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*eslint-disable no-unused-vars*/
+	/*!
+	 * jQuery JavaScript Library v3.1.0
 	 * https://jquery.com/
 	 *
 	 * Includes Sizzle.js
@@ -126,7 +477,7 @@
 	 * Released under the MIT license
 	 * https://jquery.org/license
 	 *
-	 * Date: 2016-06-09T18:02Z
+	 * Date: 2016-07-07T21:44Z
 	 */
 	( function( global, factory ) {
 
@@ -154,7 +505,7 @@
 		}
 
 	// Pass this if window is not defined yet
-	}( typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
+	} )( typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
 
 	// Edge <= 12 - 13+, Firefox <=18 - 45+, IE 10 - 11, Safari 5.1 - 9+, iOS 6 - 9.1
 	// throw exceptions when non-strict code (e.g., ASP.NET 4.5) accesses strict mode
@@ -198,10 +549,14 @@
 			script.text = code;
 			doc.head.appendChild( script ).parentNode.removeChild( script );
 		}
+	/* global Symbol */
+	// Defining this global in .eslintrc would create a danger of using the global
+	// unguarded in another place, it seems safer to define global only for this module
+
 
 
 	var
-		version = "3.0.0",
+		version = "3.1.0",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -433,7 +788,11 @@
 		},
 
 		isEmptyObject: function( obj ) {
+
+			/* eslint-disable no-unused-vars */
+			// See https://github.com/eslint/eslint/issues/6125
 			var name;
+
 			for ( name in obj ) {
 				return false;
 			}
@@ -623,15 +982,9 @@
 		support: support
 	} );
 
-	// JSHint would error on this code due to the Symbol not being defined in ES5.
-	// Defining this global in .jshintrc would create a danger of using the global
-	// unguarded in another place, it seems safer to just disable JSHint for these
-	// three lines.
-	/* jshint ignore: start */
 	if ( typeof Symbol === "function" ) {
 		jQuery.fn[ Symbol.iterator ] = arr[ Symbol.iterator ];
 	}
-	/* jshint ignore: end */
 
 	// Populate the class2type map
 	jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
@@ -2870,6 +3223,7 @@
 
 
 
+
 	var dir = function( elem, dir, until ) {
 		var matched = [],
 			truncate = until !== undefined;
@@ -2911,7 +3265,6 @@
 	function winnow( elements, qualifier, not ) {
 		if ( jQuery.isFunction( qualifier ) ) {
 			return jQuery.grep( elements, function( elem, i ) {
-				/* jshint -W018 */
 				return !!qualifier.call( elem, i, elem ) !== not;
 			} );
 
@@ -3537,7 +3890,7 @@
 		// For Promises/A+, convert exceptions into rejections
 		// Since jQuery.when doesn't unwrap thenables, we can skip the extra checks appearing in
 		// Deferred#then to conditionally suppress rejection.
-		} catch ( /*jshint -W002 */ value ) {
+		} catch ( value ) {
 
 			// Support: Android 4.0 only
 			// Strict mode functions invoked without .call/.apply get global-object context
@@ -3902,12 +4255,29 @@
 
 
 
+	jQuery.readyException = function( error ) {
+		window.setTimeout( function() {
+			throw error;
+		} );
+	};
+
+
+
+
 	// The deferred used on DOM ready
 	var readyList = jQuery.Deferred();
 
 	jQuery.fn.ready = function( fn ) {
 
-		readyList.then( fn );
+		readyList
+			.then( fn )
+
+			// Wrap jQuery.readyException in a function so that the lookup
+			// happens at the time of error handling instead of callback
+			// registration.
+			.catch( function( error ) {
+				jQuery.readyException( error );
+			} );
 
 		return this;
 	};
@@ -4047,7 +4417,6 @@
 		//    - Node.DOCUMENT_NODE
 		//  - Object
 		//    - Any
-		/* jshint -W018 */
 		return owner.nodeType === 1 || owner.nodeType === 9 || !( +owner.nodeType );
 	};
 
@@ -4548,8 +4917,12 @@
 			scale = 1,
 			maxIterations = 20,
 			currentValue = tween ?
-				function() { return tween.cur(); } :
-				function() { return jQuery.css( elem, prop, "" ); },
+				function() {
+					return tween.cur();
+				} :
+				function() {
+					return jQuery.css( elem, prop, "" );
+				},
 			initial = currentValue(),
 			unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
 
@@ -5591,7 +5964,13 @@
 
 
 	var
+
+		/* eslint-disable max-len */
+
+		// See https://github.com/eslint/eslint/issues/3229
 		rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
+
+		/* eslint-enable */
 
 		// Support: IE <=10 - 11, Edge 12 - 13
 		// In IE/Edge using regex groups here causes severe slowdowns.
@@ -6748,7 +7127,7 @@
 		// If we include width, step value is 1 to do all cssExpand values,
 		// otherwise step value is 2 to skip over Left and Right
 		includeWidth = includeWidth ? 1 : 0;
-		for ( ; i < 4 ; i += 2 - includeWidth ) {
+		for ( ; i < 4; i += 2 - includeWidth ) {
 			which = cssExpand[ i ];
 			attrs[ "margin" + which ] = attrs[ "padding" + which ] = type;
 		}
@@ -6775,7 +7154,6 @@
 	}
 
 	function defaultPrefilter( elem, props, opts ) {
-		/* jshint validthis: true */
 		var prop, value, toggle, hooks, oldfire, propTween, restoreDisplay, display,
 			isBox = "width" in props || "height" in props,
 			anim = this,
@@ -6917,8 +7295,11 @@
 					showHide( [ elem ], true );
 				}
 
-				/* jshint -W083 */
+				/* eslint-disable no-loop-func */
+
 				anim.done( function() {
+
+				/* eslint-enable no-loop-func */
 
 					// The final step of a "hide" animation is actually hiding the element
 					if ( !hidden ) {
@@ -7004,7 +7385,7 @@
 					index = 0,
 					length = animation.tweens.length;
 
-				for ( ; index < length ; index++ ) {
+				for ( ; index < length; index++ ) {
 					animation.tweens[ index ].run( percent );
 				}
 
@@ -7045,7 +7426,7 @@
 						return this;
 					}
 					stopped = true;
-					for ( ; index < length ; index++ ) {
+					for ( ; index < length; index++ ) {
 						animation.tweens[ index ].run( 1 );
 					}
 
@@ -7063,7 +7444,7 @@
 
 		propFilter( props, animation.opts.specialEasing );
 
-		for ( ; index < length ; index++ ) {
+		for ( ; index < length; index++ ) {
 			result = Animation.prefilters[ index ].call( animation, elem, props, animation.opts );
 			if ( result ) {
 				if ( jQuery.isFunction( result.stop ) ) {
@@ -7117,7 +7498,7 @@
 				index = 0,
 				length = props.length;
 
-			for ( ; index < length ; index++ ) {
+			for ( ; index < length; index++ ) {
 				prop = props[ index ];
 				Animation.tweeners[ prop ] = Animation.tweeners[ prop ] || [];
 				Animation.tweeners[ prop ].unshift( callback );
@@ -7978,11 +8359,16 @@
 
 					while ( i-- ) {
 						option = options[ i ];
+
+						/* eslint-disable no-cond-assign */
+
 						if ( option.selected =
 							jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
 						) {
 							optionSet = true;
 						}
+
+						/* eslint-enable no-cond-assign */
 					}
 
 					// Force browsers to behave consistently when non-matching value is set
@@ -8691,6 +9077,7 @@
 			processData: true,
 			async: true,
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+
 			/*
 			timeout: 0,
 			data: null,
@@ -10151,20 +10538,20 @@
 
 
 	return jQuery;
-	} ) );
+	} );
 
 
 /***/ },
-/* 4 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var $ = __webpack_require__(3);
-	var template = __webpack_require__(10);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var $ = __webpack_require__(7);
+	var template = __webpack_require__(14);
 
 	var AuthView = function () {
 	    this.super.constructor.apply(this);
@@ -10219,10 +10606,10 @@
 
 
 /***/ },
-/* 5 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var config = __webpack_require__(2);
+	var config = __webpack_require__(6);
 
 	/**
 	 * Constructor for View class.
@@ -10271,7 +10658,7 @@
 
 
 /***/ },
-/* 6 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = function (Child, Parent) {
@@ -10285,12 +10672,12 @@
 
 
 /***/ },
-/* 7 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(8);
-	var $ = __webpack_require__(3);
-	var config = __webpack_require__(2);
+	var _ = __webpack_require__(12);
+	var $ = __webpack_require__(7);
+	var config = __webpack_require__(6);
 
 	var timing = config.timing;
 	var callbackAfter = null;
@@ -10322,7 +10709,7 @@
 	      return promise(
 	        $.ajax({
 	          type: "GET",
-	          url: "http://0.0.0.0:3000/api/People",
+	          url: "/api/People",
 	        })
 	       );
 	     },
@@ -10330,7 +10717,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "GET",
-	           url: "http://0.0.0.0:3000/api/People?filter[where][login]="+login,
+	           url: "/api/People?filter[where][login]="+login,
 	         })
 	        );
 	      },
@@ -10338,7 +10725,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "GET",
-	           url: "http://0.0.0.0:3000/api/Tickets?filter[where][id]="+ticketId,
+	           url: "/api/Tickets?filter[where][id]="+ticketId,
 	         })
 	       );
 	     },
@@ -10346,7 +10733,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "GET",
-	           url: "http://0.0.0.0:3000/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}",
+	           url: "/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}",
 	         })
 	       );
 	     },
@@ -10354,7 +10741,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "GET",
-	           url: "http://0.0.0.0:3000/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}",
+	           url: "/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}",
 	         })
 	       );
 	     },
@@ -10362,7 +10749,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "POST",
-	           url: "http://0.0.0.0:3000/api/People" ,
+	           url: "/api/People" ,
 	           data: newUser
 	         }).done(function(msg){
 	           alert("Новый клиент зарегистрирован");
@@ -10374,7 +10761,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "PUT",
-	           url: "http://0.0.0.0:3000/api/People" ,
+	           url: "/api/People" ,
 	           data: newUser
 	         }).done(function(msg){
 	           alert("Пользователь изменен");
@@ -10385,7 +10772,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "POST",
-	           url: "http://0.0.0.0:3000/api/Tickets" ,
+	           url: "/api/Tickets" ,
 	           data: newTicket
 	         }).done(function(msg){
 	           alert("Новая заявка");
@@ -10396,7 +10783,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "PUT",
-	           url: "http://0.0.0.0:3000/api/Tickets" ,
+	           url: "/api/Tickets" ,
 	           data: newTicket
 	         }).done(function(msg){
 	           alert("Заявка изменена");
@@ -10407,7 +10794,7 @@
 	       return promise(
 	         $.ajax({
 	           type: "POST",
-	           url: "http://0.0.0.0:3000/api/Comments" ,
+	           url: "/api/Comments" ,
 	           data: newComment
 	         }).done(function(msg){
 	           alert("Новая коммент добавлен");
@@ -10419,7 +10806,7 @@
 
 
 /***/ },
-/* 8 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -26827,10 +27214,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module), (function() { return this; }())))
 
 /***/ },
-/* 9 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -26846,7 +27233,7 @@
 
 
 /***/ },
-/* 10 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -26860,16 +27247,16 @@
 	}
 
 /***/ },
-/* 11 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var $ = __webpack_require__(3);
-	var template = __webpack_require__(12);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var $ = __webpack_require__(7);
+	var template = __webpack_require__(16);
 
 	var users=[];
 	var usersList=[];
@@ -27046,7 +27433,7 @@
 
 
 /***/ },
-/* 12 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27101,18 +27488,18 @@
 	}
 
 /***/ },
-/* 13 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var $ = __webpack_require__(3);
-	var template = __webpack_require__(14);
-	var templateComment = __webpack_require__(15);
-	var commentItem =__webpack_require__(16);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var $ = __webpack_require__(7);
+	var template = __webpack_require__(18);
+	var templateComment = __webpack_require__(19);
+	var commentItem =__webpack_require__(20);
 
 	var ticket;
 	var usersList;
@@ -27234,7 +27621,7 @@
 
 
 /***/ },
-/* 14 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27275,7 +27662,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27289,7 +27676,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27307,16 +27694,16 @@
 	}
 
 /***/ },
-/* 17 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var $ = __webpack_require__(3);
-	var template = __webpack_require__(18);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var $ = __webpack_require__(7);
+	var template = __webpack_require__(22);
 
 	var users = [];
 	var flagCreateTicket;
@@ -27392,7 +27779,7 @@
 
 
 /***/ },
-/* 18 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27415,15 +27802,15 @@
 	}
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var template = __webpack_require__(20);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var template = __webpack_require__(24);
 
 	var flagAddExecutor;
 
@@ -27471,7 +27858,7 @@
 
 
 /***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27485,15 +27872,15 @@
 	}
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var template = __webpack_require__(22);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var template = __webpack_require__(26);
 
 	var flagAddClient;
 
@@ -27542,7 +27929,7 @@
 
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27556,16 +27943,16 @@
 	}
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var $ = __webpack_require__(3);
-	var template = __webpack_require__(24);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var $ = __webpack_require__(7);
+	var template = __webpack_require__(28);
 
 	var ticket;
 	var users;
@@ -27632,7 +28019,7 @@
 
 
 /***/ },
-/* 24 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -27652,15 +28039,15 @@
 	}
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(5);
-	var config = __webpack_require__(2);
-	var router = __webpack_require__(1);
-	var inherit = __webpack_require__(6);
-	var request = __webpack_require__(7);
-	var template = __webpack_require__(26);
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var template = __webpack_require__(30);
 
 	var users = [];
 	var ticket;
@@ -27718,7 +28105,7 @@
 
 
 /***/ },
-/* 26 */
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
