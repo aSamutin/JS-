@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Фигурки</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div>
+          <canvas id="canvas" height="530px" width="700px"></canvas>
+          <script src="bundle.js"></script>
+          <select class="figure">
+            <option selected value="Circle">Круг</option>
+            <option value="Rectangle">Прямоугольник</option>
+            <option value="Square">Квадрат</option>
+          </select>
+          <select class="color">
+            <option selected value="red">Красный</option>
+            <option value="green">Зеленый</option>
+            <option value="blue">Синий</option>
+          </select>
+          <input type="submit" name="clear" value="Очистить">
+          <input type="submit" name="addFigure" value="Создать">
+          <input type="submit" name="increase" value="Увеличить">
+          <input type="submit" name="decrease" value="Уменьшить">
+          <input type="submit" name="getArea" value="Площадь">
+      </div>
+    </body>
+</html>
