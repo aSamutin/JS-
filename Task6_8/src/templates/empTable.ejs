@@ -1,0 +1,15 @@
+ <table>
+       <caption><%= title%></caption>
+       <tr>
+          <th>id</th>
+          <th>Имя</th>
+          <th>ЗП</th>
+        </tr>
+        <% for(var i=0; i< employees.length; i++) { %>
+	    <tr>
+	      <td><%= employees[i].id %></td>
+	      <td><%= employees[i].first_name%></td>
+	      <td><%= employees[i].getPayment()%></td>
+	    </tr>
+	<% }; %>
+ </table>
