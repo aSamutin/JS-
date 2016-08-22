@@ -109,12 +109,12 @@ TaskView.prototype.fetchData = function () {
     if (!this.promise) {
         var self = this;
         request.getComments(self.task_id_comm).then(function(data){
-            self.taskComments = data.responseJSON;
+            self.taskComments = data;
         });
 
         this.promise = request.getTicket(self.task_id).then(function(data) {
-            self.taskData = data.responseJSON[0];
-            ticket = data.responseJSON[0];
+            self.taskData = data[0];
+            ticket = data[0];
             return data;
         });
 

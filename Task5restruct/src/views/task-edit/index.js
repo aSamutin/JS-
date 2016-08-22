@@ -58,8 +58,8 @@ TaskEditView.prototype.fetchData = function () {
     if (!this.promise) {
         var self = this;
         this.promise = request.getUsersList().then(function (data) {
-            self.userList = _.map(_.filter(data.responseJSON, {'role':'Client'}), 'login');
-            users = data.responseJSON;
+            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
+            users = data;
             return data;
         });
         ticket = this.ticket;

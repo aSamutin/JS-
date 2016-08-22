@@ -27,102 +27,83 @@ var promise = function (data, strong) {
 };
 
 module.exports = {
-
     getUsersList: function(){
-      return promise(
-        $.ajax({
-          type: "GET",
-          url: "/api/People",
-        })
-       );
+        return fetch("/api/People", {
+            method: 'GET',
+        }).then(function(response){
+            return response.json();
+        });
+    },
+
+    getUser: function(login){
+        return fetch("/api/People?filter[where][login]="+login, {
+            method: 'GET',
+        }).then(function(response){
+            return response.json();
+        });
      },
-     getUser: function(login){
-       return promise(
-         $.ajax({
-           type: "GET",
-           url: "/api/People?filter[where][login]="+login,
-         })
-        );
-      },
+
      getTicket: function(ticketId){
-       return promise(
-         $.ajax({
-           type: "GET",
-           url: "/api/Tickets?filter[where][id]="+ticketId,
-         })
-       );
+         return fetch("/api/Tickets?filter[where][id]="+ticketId, {
+             method: 'GET',
+         }).then(function(response){
+             return response.json();
+         });
      },
+
      getTicketsList: function(ticketsId){
-       return promise(
-         $.ajax({
-           type: "GET",
-           url: "/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}",
-         })
-       );
+         return fetch("/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}", {
+             method: 'GET',
+         }).then(function(response){
+             return response.json();
+         });
      },
+
      getComments: function(commentsId){
-       return promise(
-         $.ajax({
-           type: "GET",
-           url: "/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}",
-         })
-       );
-     },
-     saveUser: function(newUser){
-       return promise(
-         $.ajax({
-           type: "POST",
-           url: "/api/People" ,
-           data: newUser
-         }).done(function(msg){
-           alert("Новый клиент зарегистрирован");
-         })
-       );
+         return fetch("/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}", {
+             method: 'GET',
+         }).then(function(response){
+             return response.json();
+         });
      },
 
      editUser: function(newUser){
-       return promise(
-         $.ajax({
-           type: "PUT",
-           url: "/api/People" ,
-           data: newUser
-         }).done(function(msg){
-           alert("Пользователь изменен");
-         })
-       );
-     },
-     saveTicket: function(newTicket){
-       return promise(
-         $.ajax({
-           type: "POST",
-           url: "/api/Tickets" ,
-           data: newTicket
-         }).done(function(msg){
-           alert("Новая заявка");
-         })
-       );
-     },
-     editTicket: function(newTicket){
-       return promise(
-         $.ajax({
-           type: "PUT",
-           url: "/api/Tickets" ,
-           data: newTicket
-         }).done(function(msg){
-           alert("Заявка изменена");
-         })
-       );
-     },
-     saveComment: function(newComment){
-       return promise(
-         $.ajax({
-           type: "POST",
-           url: "/api/Comments" ,
-           data: newComment
-         }).done(function(msg){
-           alert("Новая коммент добавлен");
-         })
-       );
+         fetch("/api/People", {
+             method: 'PUT',
+             headers: {'Content-Type': 'application/json'},
+           	 body: JSON.stringify(newUser)
+         });
      },
 
+     editTicket: function(newTicket){
+        fetch("/api/Tickets", {
+           	 method: 'PUT',
+             headers: {'Content-Type': 'application/json'},
+             body: JSON.stringify(newTicket)
+        });
+     },
+
+     saveComment: function(newComment){
+       fetch("/api/Comments", {
+        method: 'POST',
+         headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newComment)
+       });
+     },
+
+     saveTicket: function(newTicket){
+       fetch("/api/Tickets", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newTicket)
+       });
+     },
+
+     saveUser: function(newUser){
+       fetch("/api/People", {
+        method: 'POST',
+         headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newUser)
+       });
+     }
 };

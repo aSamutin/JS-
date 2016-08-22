@@ -31,7 +31,7 @@ AuthView.prototype.getUser = function (event) {
     event.preventDefault();
     var username = $("input[name = 'username']").val();
     request.getUser(username).then( function(user) {
-        var activeUser = user.responseJSON[0];
+        var activeUser = user[0];
         if (activeUser){
             config.user = activeUser;
             router.navigate('task-list');

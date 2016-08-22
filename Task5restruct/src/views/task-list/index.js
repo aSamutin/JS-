@@ -163,15 +163,15 @@ TaskListView.prototype.fetchData = function () {
     if (!this.promise) {
         var self = this;
         request.getUsersList().then(function(data) {
-            self.userList = _.map(_.filter(data.responseJSON, {'role':'Client'}), 'login');
+            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
             users = self.userList;
-            usersList = data.responseJSON;
+            usersList = data;
         });
 
         this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
-            self.taskList = _.sortBy( data.responseJSON, function(ticket){ return ticket[self.keySort]; });
+            self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
             tickets = self.taskList;
-            return data.responseJSON;
+            return data;
         });
     }
     return this.promise;

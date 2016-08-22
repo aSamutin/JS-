@@ -41,7 +41,7 @@ ClientRegView.prototype.fetchData = function () {
     if (!this.promise) {
         var self = this;
         this.promise = request.getUsersList().then(function(data) {
-            self.userList = _.map(_.filter(data.responseJSON, {'role':'Client'}), 'login');
+            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
             return data;
         });
     }

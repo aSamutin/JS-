@@ -64,9 +64,9 @@ TaskCreateView.prototype.getRenderData = function () {
 TaskCreateView.prototype.fetchData = function () {
     if (!this.promise) {
         var self = this;
-        this.promise = request.getUsersList().then(function(data) {
-            self.userList = _.map(_.filter(data.responseJSON, {'role':'Client'}), 'login');
-            users = data.responseJSON;
+        this.promise = request.getUsersList().then(function(data) { 
+            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
+            users = data;
         });
     }
     return this.promise;

@@ -34,7 +34,8 @@ module.exports = {
               { test: /\.html?$/, loader: 'html' },
               { test: /\.ejs$/, loader: 'ejs-loader'}
           ]
-      }
+      },
+      devtool: 'source-map'
 };
 
 if (NODE_ENV == "production") {
