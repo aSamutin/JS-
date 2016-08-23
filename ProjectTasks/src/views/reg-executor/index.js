@@ -1,8 +1,9 @@
 var View = require('../view');
-var config = require('../../app.config');
+// var config = require('../../app.config');
 var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
+var _ = require('lodash');
 var template = require('./reg-executor.ejs');
 
 var flagAddExecutor;
@@ -27,8 +28,8 @@ ExecutorRegView.prototype.addExecutor = function(){
         var newUser = {
             id: this.form.newExecutor.value,
             login: this.form.newExecutor.value,
-            ticketsId: [""],
-            role: "Executor"
+            ticketsId: [''],
+            role: 'Executor'
         };
         request.saveUser(newUser);
         flagAddExecutor = true;

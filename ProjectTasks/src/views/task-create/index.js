@@ -4,6 +4,7 @@ var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
+var _ = require('lodash');
 var template = require('./task-create.ejs');
 
 var users = [];
@@ -22,7 +23,7 @@ inherit(TaskCreateView, View);
 TaskCreateView.prototype.render = function () {
     var data = this.getRenderData();
     this.el.html(this.template(data));
-    $("input[name = 'deadline']").val((new Date().toISOString()).slice(0,10));
+    $('input[name = "deadline"]').val((new Date().toISOString()).slice(0, 10));
     flagCreateTicket = false;
 };
 
@@ -31,11 +32,11 @@ TaskCreateView.prototype.createEvents = function () {
 };
 TaskCreateView.prototype.addTicket = function(){
     if(!flagCreateTicket){
-        var client =(_.filter(users, {'login':this.form.client.value}))[0];
-        var admin =(_.filter(users, {'role':"Admin"}))[0];
+        var client =(_.filter(users, {'login': this.form.client.value}))[0];
+        var admin =(_.filter(users, {'role': 'Admin'}))[0];
         var newTicket = {
             id : Math.round((Math.random()*10000)),
-            executorId: "Не назначен",
+            executorId: 'Не назначен',
             clientId: client.id,
             description: this.form.details.value,
             estimated: this.form.estimated.value,
@@ -43,7 +44,7 @@ TaskCreateView.prototype.addTicket = function(){
             percentReady: this.form.percent.value,
             priority: this.form.priority.value,
             status: this.form.status.value,
-            commentId : [""]
+            commentId : ['']
         };
         config.user.ticketsId.push(newTicket.id);
         admin.ticketsId.push(newTicket.id);
@@ -64,7 +65,7 @@ TaskCreateView.prototype.getRenderData = function () {
 TaskCreateView.prototype.fetchData = function () {
     if (!this.promise) {
         var self = this;
-        this.promise = request.getUsersList().then(function(data) { 
+        this.promise = request.getUsersList().then(function(data) {
             self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
             users = data;
         });

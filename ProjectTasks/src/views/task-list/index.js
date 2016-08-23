@@ -4,11 +4,12 @@ var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
+var _ = require('lodash');
 var template = require('./task-list.ejs');
 
-var users=[];
-var usersList=[];
-var tickets=[];
+var users = [];
+var usersList = [];
+var tickets = [];
 
 var TaskListView = function (keySort) {
     this.super.constructor.apply(this);
@@ -25,14 +26,14 @@ TaskListView.prototype.render = function () {
     var data = this.getRenderData();
     this.el.html(this.template(data));
     switch (config.user.role) {
-        case "Executor":
-            $('#openCreateTicket').hide();
-            $('#openCreateExecutor').hide();
+    case 'Executor':
+        $('#openCreateTicket').hide();
+        $('#openCreateExecutor').hide();
         break;
-        case "Client":
-            $('#openCreateExecutor').hide();
+    case 'Client':
+        $('#openCreateExecutor').hide();
         break;
-        default:
+    default:
     }
 };
 
@@ -47,15 +48,15 @@ TaskListView.prototype.createEvents = function () {
 
 TaskListView.prototype.sort = function(){
     var hTable = {
-        "Номер заявки": "id",
-        "Клиент": "clientId",
-        "Исполнитель": "executorId",
-        "Описание": "description",
-        "Приоритет": "priority",
-        "Estimated": "estimated",
-        "Deadline": "deadline",
-        "Готовность(%)": "percentReady",
-        "Статус": "status",
+        'Номер заявки': 'id',
+        'Клиент': 'clientId',
+        'Исполнитель': 'executorId',
+        'Описание': 'description',
+        'Приоритет': 'priority',
+        'Estimated': 'estimated',
+        'Deadline': 'deadline',
+        'Готовность(%)': 'percentReady',
+        'Статус': 'status',
     };
     var key = hTable[this.innerHTML];
     router.navigate('task-list', key);
@@ -78,14 +79,14 @@ TaskListView.prototype.filter = function(){
     $('select[name="status"]').val(this.form.status.value);
 
     switch (config.user.role) {
-        case "Executor":
-            $('#openCreateTicket').hide();
-            $('#openCreateExecutor').hide();
+    case 'Executor':
+        $('#openCreateTicket').hide();
+        $('#openCreateExecutor').hide();
         break;
-        case "Client":
-            $('#openCreateExecutor').hide();
+    case 'Client':
+        $('#openCreateExecutor').hide();
         break;
-        default:
+    default:
     }
 };
 
@@ -99,14 +100,14 @@ TaskListView.prototype.find = function(){
     $('#app').html(template({list:searchTicket, usersList:users}));
 
     switch (config.user.role) {
-        case "Executor":
-            $('#openCreateTicket').hide();
-            $('#openCreateExecutor').hide();
+    case 'Executor':
+        $('#openCreateTicket').hide();
+        $('#openCreateExecutor').hide();
         break;
-        case "Client":
-            $('#openCreateExecutor').hide();
+    case 'Client':
+        $('#openCreateExecutor').hide();
         break;
-        default:
+    default:
     }
 };
 
@@ -123,7 +124,7 @@ TaskListView.prototype.openTask = function (event) {
     var comm = target.dataset.comments.split(',');
 
     for (var i = 0; i < comm.length; i++) {
-      comm[i]=+comm[i];
+        comm[i] =+ comm[i];
     }
     var ticket = {
         id: +target.dataset.id ,
@@ -146,7 +147,7 @@ TaskListView.prototype.getRenderData = function () {
         tickets[i].executorId = (_.find(usersList, {'id': +tickets[i].executorId}));
 
         if (!tickets[i].executorId){
-            tickets[i].executorId = "Не назначен";
+            tickets[i].executorId = 'Не назначен';
         } else {
             tickets[i].executorId = tickets[i].executorId.login;
         }

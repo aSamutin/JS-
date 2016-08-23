@@ -46,11 +46,11 @@
 
 	__webpack_require__(1);
 	var router = __webpack_require__(5);
-	var config = __webpack_require__(6);
+	// var config = require('./app.config');
 	
 	
 	var AuthView = __webpack_require__(8);
-	var TaskListView = __webpack_require__(15);
+	var TaskListView = __webpack_require__(13);
 	var TaskView = __webpack_require__(17);
 	var TaskCreateView = __webpack_require__(21);
 	var ExecutorRegView = __webpack_require__(23);
@@ -10553,7 +10553,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
-	var template = __webpack_require__(14);
+	var template = __webpack_require__(12);
 	
 	var AuthView = function () {
 	    this.super.constructor.apply(this);
@@ -10578,23 +10578,23 @@
 	
 	AuthView.prototype.getUser = function (event) {
 	    event.preventDefault();
-	    var username = $("input[name = 'username']").val();
+	    var username = $('input[name = "username"]').val();
 	    request.getUser(username).then( function(user) {
 	        var activeUser = user[0];
 	        if (activeUser){
 	            config.user = activeUser;
-		    request.activeUser(activeUser);
+	            request.activeUser(activeUser);
 	            router.navigate('task-list');
-	        } else if(username == "Admin") {
+	        } else if(username == 'Admin') {
 	            var newUser = {
 	                id: 1,
-	                login: "Admin",
-	                ticketsId: [""],
-	                role: "Admin"
+	                login: 'Admin',
+	                ticketsId: [''],
+	                role: 'Admin'
 	            };
 	            config.user = newUser;
 	            request.saveUser(newUser);
-		    request.activeUser(activeUser);
+	            request.activeUser(activeUser);
 	            router.navigate('task-list');
 	        } else {
 	            alert('Пользователь не найден');
@@ -10639,7 +10639,7 @@
 	        then: function (callback) {
 	            callback();
 	        }
-	    }
+	    };
 	};
 	
 	/**
@@ -10677,126 +10677,294 @@
 
 /***/ },
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var _ = __webpack_require__(12);
-	var $ = __webpack_require__(7);
-	var config = __webpack_require__(6);
+	'use strict';
+	// var _ = require('lodash');
+	// var $ = require('jquery');
+	//var config = require('../app.config');
 	
-	var timing = config.timing;
-	var callbackAfter = null;
-	var returnData = {
-	    then: function (callback) {
-	        callbackAfter = callback;
-	    }
-	};
-	
-	var promise = function (data, strong) {
-	    strong = strong || false;
-	    var defer = $.Deferred();
-	
-	    setTimeout(function () {
-	        if (data || strong == false) {
-	            defer.resolve(data);
-	        }
-	        else {
-	            defer.reject(data);
-	        }
-	    }, timing);
-	
-	    return defer;
-	};
+	// var timing = config.timing;
+	// var callbackAfter = null;
+	// var returnData = {
+	//     then: function (callback) {
+	//         callbackAfter = callback;
+	//     }
+	// };
 	
 	module.exports = {
-	    getUsersList: function(){
-	        return fetch("/api/People", {
-	            method: 'GET',
-	        }).then(function(response){
-	            return response.json();
+	    getUsersList: function () {
+	        return fetch('/api/People')
+	        .then(response => response.json());
+	    },
+	    getUser: function (login) {
+	        return fetch('/api/People?filter[where][login]='+login)
+	        .then(response => response.json());
+	    },
+	    getTicket: function (ticketId) {
+	        return fetch('/api/Tickets?filter[where][id]='+ticketId)
+	        .then(response => response.json());
+	    },
+	    getTicketsList: function (ticketsId) {
+	        let filter = {where: {id: {inq: ticketsId}}};
+	        filter = 'filter=' + JSON.stringify(filter);
+	        filter = encodeURIComponent(filter);
+	        return fetch(`/api/Tickets?${filter}`)
+	        .then(response => response.json());
+	    },
+	    getComments: function (commentsId) {
+	        let filter = {where: {id: {inq: commentsId}}};
+	        filter = 'filter=' + JSON.stringify(filter);
+	        filter = encodeURIComponent(filter);
+	        return fetch(`/api/Comments?${filter}`)
+	        .then(response => response.json());
+	    },
+	    editUser: function (newUser) {
+	        fetch('/api/People', {
+	            method: 'PUT',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify(newUser)
+	        });
+	    },
+	    editTicket: function (newTicket) {
+	        fetch('/api/Tickets', {
+	            method: 'PUT',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify(newTicket)
+	        });
+	    },
+	    saveComment: function (newComment) {
+	        fetch('/api/Comments', {
+	            method: 'POST',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify(newComment)
+	        });
+	    },
+	    saveTicket: function (newTicket) {
+	        fetch('/api/Tickets', {
+	            method: 'POST',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify(newTicket)
+	        });
+	    },
+	    saveUser: function (newUser) {
+	        fetch('/api/People', {
+	            method: 'POST',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify(newUser)
 	        });
 	    },
 	
-	    getUser: function(login){
-	        return fetch("/api/People?filter[where][login]="+login, {
-	            method: 'GET',
-	        }).then(function(response){
-	            return response.json();
-	        });
-	     },
-	
-	     getTicket: function(ticketId){
-	         return fetch("/api/Tickets?filter[where][id]="+ticketId, {
-	             method: 'GET',
-	         }).then(function(response){
-	             return response.json();
-	         });
-	     },
-	
-	     getTicketsList: function(ticketsId){
-	         return fetch("/api/Tickets?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(ticketsId)+"}}}", {
-	             method: 'GET',
-	         }).then(function(response){
-	             return response.json();
-	         });
-	     },
-	
-	     getComments: function(commentsId){
-	         return fetch("/api/Comments?filter={%22where%22: {%22id%22: {%22inq%22: "+JSON.stringify(commentsId)+"}}}", {
-	             method: 'GET',
-	         }).then(function(response){
-	             return response.json();
-	         });
-	     },
-	
-	     editUser: function(newUser){
-	         fetch("/api/People", {
-	             method: 'PUT',
-	             headers: {'Content-Type': 'application/json'},
-	           	 body: JSON.stringify(newUser)
-	         });
-	     },
-	
-	     editTicket: function(newTicket){
-	        fetch("/api/Tickets", {
-	           	 method: 'PUT',
-	             headers: {'Content-Type': 'application/json'},
-	             body: JSON.stringify(newTicket)
-	        });
-	     },
-	
-	     saveComment: function(newComment){
-	       fetch("/api/Comments", {
-	        method: 'POST',
-	         headers: {'Content-Type': 'application/json'},
-	        body: JSON.stringify(newComment)
-	       });
-	     },
-	
-	     saveTicket: function(newTicket){
-	       fetch("/api/Tickets", {
-	        method: 'POST',
-	        headers: {'Content-Type': 'application/json'},
-	        body: JSON.stringify(newTicket)
-	       });
-	     },
-	
-	     saveUser: function(newUser){
-	       fetch("/api/People", {
-	        method: 'POST',
-	         headers: {'Content-Type': 'application/json'},
-	        body: JSON.stringify(newUser)
-	       });
-	     },
-	     
-	    activeUser: function(user){ 
-		var sUser= JSON.stringify(user);
-		sessionStorage.setItem("activeUser",sUser);
+	    activeUser: function (user) {
+	        var sUser= JSON.stringify(user);
+	        sessionStorage.setItem('activeUser',sUser);
 	    }
 	};
 
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+	module.exports = function (obj) {
+	obj || (obj = {});
+	var __t, __p = '';
+	with (obj) {
+	__p += '<div class="authorization">\n  <form action="javascript:void(0);" method="get" name="authorization">\n    <h2>Авторизация</h2>\n    <label>Пользователь<br>\n        <input type="text" name="username" placeholder="Логин">\n    </label>\n    <input type="submit" id="entry" value="Войти">\n    <input type="submit" id="openRegistration" value="Зарегистрироваться">\n  </form>\n</div>\n';
+	
+	}
+	return __p
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var View = __webpack_require__(9);
+	var config = __webpack_require__(6);
+	var router = __webpack_require__(5);
+	var inherit = __webpack_require__(10);
+	var request = __webpack_require__(11);
+	var $ = __webpack_require__(7);
+	var _ = __webpack_require__(14);
+	var template = __webpack_require__(16);
+	
+	var users = [];
+	var usersList = [];
+	var tickets = [];
+	
+	var TaskListView = function (keySort) {
+	    this.super.constructor.apply(this);
+	    this.template = template;
+	    this.promise = null;
+	    this.taskList = [];
+	    this.userList = [];
+	    this.keySort = keySort;
+	};
+	
+	inherit(TaskListView, View);
+	
+	TaskListView.prototype.render = function () {
+	    var data = this.getRenderData();
+	    this.el.html(this.template(data));
+	    switch (config.user.role) {
+	    case 'Executor':
+	        $('#openCreateTicket').hide();
+	        $('#openCreateExecutor').hide();
+	        break;
+	    case 'Client':
+	        $('#openCreateExecutor').hide();
+	        break;
+	    default:
+	    }
+	};
+	
+	TaskListView.prototype.createEvents = function () {
+	    this.el.on('click', 'tr.line', this.openTask);
+	    this.el.on('click', '#openCreateTicket', this.openCreateTask);
+	    this.el.on('click', '#openCreateExecutor', this.openExecutorReg);
+	    this.el.on('click', '.headSort th', this.sort);
+	    this.el.on('click', '#filter', this.filter);
+	    this.el.on('click', '#find', this.find);
+	};
+	
+	TaskListView.prototype.sort = function(){
+	    var hTable = {
+	        'Номер заявки': 'id',
+	        'Клиент': 'clientId',
+	        'Исполнитель': 'executorId',
+	        'Описание': 'description',
+	        'Приоритет': 'priority',
+	        'Estimated': 'estimated',
+	        'Deadline': 'deadline',
+	        'Готовность(%)': 'percentReady',
+	        'Статус': 'status',
+	    };
+	    var key = hTable[this.innerHTML];
+	    router.navigate('task-list', key);
+	};
+	
+	TaskListView.prototype.filter = function(){
+	    var filterTickets;
+	    if ((this.form.client.value == 'All') && (this.form.status.value == 'All')){
+	        filterTickets = tickets;
+	    } else if (this.form.client.value == 'All') {
+	        filterTickets = _.filter(tickets, {status:this.form.status.value});
+	    } else if (this.form.status.value == 'All') {
+	        filterTickets = _.filter(tickets, {clientId:this.form.client.value});
+	    } else {
+	        filterTickets = _.filter(tickets, {clientId:this.form.client.value, status:this.form.status.value});
+	    }
+	
+	    $('#app').html(template({list:filterTickets, usersList:users}));
+	    $('select[name="client"]').val(this.form.client.value);
+	    $('select[name="status"]').val(this.form.status.value);
+	
+	    switch (config.user.role) {
+	    case 'Executor':
+	        $('#openCreateTicket').hide();
+	        $('#openCreateExecutor').hide();
+	        break;
+	    case 'Client':
+	        $('#openCreateExecutor').hide();
+	        break;
+	    default:
+	    }
+	};
+	
+	TaskListView.prototype.find = function(){
+	    var searchTicket=[];
+	    searchTicket[0] = _.find(tickets, {id: +this.form.search.value});
+	
+	    if (!searchTicket[0]){
+	        searchTicket = [];
+	    }
+	    $('#app').html(template({list:searchTicket, usersList:users}));
+	
+	    switch (config.user.role) {
+	    case 'Executor':
+	        $('#openCreateTicket').hide();
+	        $('#openCreateExecutor').hide();
+	        break;
+	    case 'Client':
+	        $('#openCreateExecutor').hide();
+	        break;
+	    default:
+	    }
+	};
+	
+	TaskListView.prototype.openExecutorReg = function(){
+	    router.navigate('reg-executor');
+	};
+	
+	TaskListView.prototype.openCreateTask = function(){
+	    router.navigate('task-create');
+	};
+	
+	TaskListView.prototype.openTask = function (event) {
+	    var target = event.currentTarget;
+	    var comm = target.dataset.comments.split(',');
+	
+	    for (var i = 0; i < comm.length; i++) {
+	        comm[i] =+ comm[i];
+	    }
+	    var ticket = {
+	        id: +target.dataset.id ,
+	        commentsId: comm,
+	        users: usersList
+	    };
+	    router.navigate('task', ticket);
+	};
+	
+	TaskListView.prototype.close = function () {
+	    this.el.off('click', 'tr');
+	    this.el.off('click', '#openCreateTicket');
+	    this.el.off('click', '#openCreateExecutor');
+	};
+	
+	TaskListView.prototype.getRenderData = function () {
+	    tickets = this.taskList;
+	    for (var i = 0; i < tickets.length; i++) {
+	        tickets[i].deadline = (tickets[i].deadline).slice(0,10);
+	        tickets[i].executorId = (_.find(usersList, {'id': +tickets[i].executorId}));
+	
+	        if (!tickets[i].executorId){
+	            tickets[i].executorId = 'Не назначен';
+	        } else {
+	            tickets[i].executorId = tickets[i].executorId.login;
+	        }
+	        tickets[i].clientId = (_.find(usersList, {'id': +tickets[i].clientId})).login;
+	
+	    }
+	    return {
+	        list: tickets,
+	        usersList: this.userList
+	    };
+	};
+	
+	TaskListView.prototype.fetchData = function () {
+	    if (!this.promise) {
+	        var self = this;
+	        request.getUsersList().then(function(data) {
+	            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
+	            users = self.userList;
+	            usersList = data;
+	        });
+	
+	        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
+	            self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
+	            tickets = self.taskList;
+	            return data;
+	        });
+	    }
+	    return this.promise;
+	};
+	
+	module.exports = TaskListView;
+
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -27407,10 +27575,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(13)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(15)(module)))
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -27423,206 +27591,6 @@
 		}
 		return module;
 	}
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = function (obj) {
-	obj || (obj = {});
-	var __t, __p = '';
-	with (obj) {
-	__p += '<div class="authorization">\n  <form action="javascript:void(0);" method="get" name="authorization">\n    <h2>Авторизация</h2>\n    <label>Пользователь<br>\n        <input type="text" name="username" placeholder="Логин">\n    </label>\n    <input type="submit" id="entry" value="Войти">\n    <input type="submit" id="openRegistration" value="Зарегистрироваться">\n  </form>\n</div>\n';
-	
-	}
-	return __p
-	}
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var View = __webpack_require__(9);
-	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
-	var inherit = __webpack_require__(10);
-	var request = __webpack_require__(11);
-	var $ = __webpack_require__(7);
-	var template = __webpack_require__(16);
-	
-	var users=[];
-	var usersList=[];
-	var tickets=[];
-	
-	var TaskListView = function (keySort) {
-	    this.super.constructor.apply(this);
-	    this.template = template;
-	    this.promise = null;
-	    this.taskList = [];
-	    this.userList = [];
-	    this.keySort = keySort;
-	};
-	
-	inherit(TaskListView, View);
-	
-	TaskListView.prototype.render = function () {
-	    var data = this.getRenderData();
-	    this.el.html(this.template(data));
-	    switch (config.user.role) {
-	        case "Executor":
-	            $('#openCreateTicket').hide();
-	            $('#openCreateExecutor').hide();
-	        break;
-	        case "Client":
-	            $('#openCreateExecutor').hide();
-	        break;
-	        default:
-	    }
-	};
-	
-	TaskListView.prototype.createEvents = function () {
-	    this.el.on('click', 'tr.line', this.openTask);
-	    this.el.on('click', '#openCreateTicket', this.openCreateTask);
-	    this.el.on('click', '#openCreateExecutor', this.openExecutorReg);
-	    this.el.on('click', '.headSort th', this.sort);
-	    this.el.on('click', '#filter', this.filter);
-	    this.el.on('click', '#find', this.find);
-	};
-	
-	TaskListView.prototype.sort = function(){
-	    var hTable = {
-	        "Номер заявки": "id",
-	        "Клиент": "clientId",
-	        "Исполнитель": "executorId",
-	        "Описание": "description",
-	        "Приоритет": "priority",
-	        "Estimated": "estimated",
-	        "Deadline": "deadline",
-	        "Готовность(%)": "percentReady",
-	        "Статус": "status",
-	    };
-	    var key = hTable[this.innerHTML];
-	    router.navigate('task-list', key);
-	};
-	
-	TaskListView.prototype.filter = function(){
-	    var filterTickets;
-	    if ((this.form.client.value == 'All') && (this.form.status.value == 'All')){
-	        filterTickets = tickets;
-	    } else if (this.form.client.value == 'All') {
-	        filterTickets = _.filter(tickets, {status:this.form.status.value});
-	    } else if (this.form.status.value == 'All') {
-	        filterTickets = _.filter(tickets, {clientId:this.form.client.value});
-	    } else {
-	        filterTickets = _.filter(tickets, {clientId:this.form.client.value, status:this.form.status.value});
-	    }
-	
-	    $('#app').html(template({list:filterTickets, usersList:users}));
-	    $('select[name="client"]').val(this.form.client.value);
-	    $('select[name="status"]').val(this.form.status.value);
-	
-	    switch (config.user.role) {
-	        case "Executor":
-	            $('#openCreateTicket').hide();
-	            $('#openCreateExecutor').hide();
-	        break;
-	        case "Client":
-	            $('#openCreateExecutor').hide();
-	        break;
-	        default:
-	    }
-	};
-	
-	TaskListView.prototype.find = function(){
-	    var searchTicket=[];
-	    searchTicket[0] = _.find(tickets, {id: +this.form.search.value});
-	
-	    if (!searchTicket[0]){
-	        searchTicket = [];
-	    }
-	    $('#app').html(template({list:searchTicket, usersList:users}));
-	
-	    switch (config.user.role) {
-	        case "Executor":
-	            $('#openCreateTicket').hide();
-	            $('#openCreateExecutor').hide();
-	        break;
-	        case "Client":
-	            $('#openCreateExecutor').hide();
-	        break;
-	        default:
-	    }
-	};
-	
-	TaskListView.prototype.openExecutorReg = function(){
-	    router.navigate('reg-executor');
-	};
-	
-	TaskListView.prototype.openCreateTask = function(){
-	    router.navigate('task-create');
-	};
-	
-	TaskListView.prototype.openTask = function (event) {
-	    var target = event.currentTarget;
-	    var comm = target.dataset.comments.split(',');
-	
-	    for (var i = 0; i < comm.length; i++) {
-	      comm[i]=+comm[i];
-	    }
-	    var ticket = {
-	        id: +target.dataset.id ,
-	        commentsId: comm,
-	        users: usersList
-	    };
-	    router.navigate('task', ticket);
-	};
-	
-	TaskListView.prototype.close = function () {
-	    this.el.off('click', 'tr');
-	    this.el.off('click', '#openCreateTicket');
-	    this.el.off('click', '#openCreateExecutor');
-	};
-	
-	TaskListView.prototype.getRenderData = function () {
-	    tickets = this.taskList;
-	    for (var i = 0; i < tickets.length; i++) {
-	        tickets[i].deadline = (tickets[i].deadline).slice(0,10);
-	        tickets[i].executorId = (_.find(usersList, {'id': +tickets[i].executorId}));
-	
-	        if (!tickets[i].executorId){
-	            tickets[i].executorId = "Не назначен";
-	        } else {
-	            tickets[i].executorId = tickets[i].executorId.login;
-	        }
-	        tickets[i].clientId = (_.find(usersList, {'id': +tickets[i].clientId})).login;
-	
-	    }
-	    return {
-	        list: tickets,
-	        usersList: this.userList
-	    };
-	};
-	
-	TaskListView.prototype.fetchData = function () {
-	    if (!this.promise) {
-	        var self = this;
-	        request.getUsersList().then(function(data) {
-	            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
-	            users = self.userList;
-	            usersList = data;
-	        });
-	
-	        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
-	            self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
-	            tickets = self.taskList;
-	            return data;
-	        });
-	    }
-	    return this.promise;
-	};
-	
-	module.exports = TaskListView;
 
 
 /***/ },
@@ -27690,6 +27658,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
+	var _ = __webpack_require__(14);
 	var template = __webpack_require__(18);
 	var templateComment = __webpack_require__(19);
 	var commentItem =__webpack_require__(20);
@@ -27732,12 +27701,12 @@
 	        $('#openCreateComment').hide();
 	        $('.comments').append(templateComment());
 	        flagOCC = true;
-	        flafAC = false;
+	        flagAC = false;
 	    }
 	};
 	TaskView.prototype.addComment = function(){
 	    flagOCC = false;
-	    if (!flafAC){
+	    if (!flagAC){
 	        var comment = {
 	            id: Math.random(),
 	            userId: config.user.id,
@@ -27755,7 +27724,7 @@
 	            ticket.clientId = (_.find(usersList, {'login': ticket.clientId})).id;
 	        }
 	        request.editTicket(ticket);
-	        flafAC = true;
+	        flagAC = true;
 	    }
 	};
 	
@@ -27763,9 +27732,9 @@
 	    var data = this.getRenderData();
 	    this.el.html(this.template(data));
 	
-	    if (config.user.role != "Admin"){
+	    if (config.user.role != 'Admin'){
 	        $('#openSelectExecutor').hide();
-	    } else if (data.ticket.executorId != "Не назначен"){
+	    } else if (data.ticket.executorId != 'Не назначен'){
 	        $('#openSelectExecutor').hide();
 	    }
 	};
@@ -27775,7 +27744,7 @@
 	    ticket.deadline = (ticket.deadline).slice(0,10);
 	
 	    if (!ticket.executorId){
-	        ticket.executorId = "Не назначен";
+	        ticket.executorId = 'Не назначен';
 	    } else {
 	        ticket.executorId= ticket.executorId.login;
 	    }
@@ -27805,7 +27774,7 @@
 	        });
 	
 	        usersList = this.usersList;
-	        tickId = this.task_id;
+	      //  tickId = this.task_id;
 	    }
 	    return this.promise;
 	};
@@ -27896,6 +27865,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
+	var _ = __webpack_require__(14);
 	var template = __webpack_require__(22);
 	
 	var users = [];
@@ -27914,7 +27884,7 @@
 	TaskCreateView.prototype.render = function () {
 	    var data = this.getRenderData();
 	    this.el.html(this.template(data));
-	    $("input[name = 'deadline']").val((new Date().toISOString()).slice(0,10));
+	    $('input[name = "deadline"]').val((new Date().toISOString()).slice(0, 10));
 	    flagCreateTicket = false;
 	};
 	
@@ -27923,11 +27893,11 @@
 	};
 	TaskCreateView.prototype.addTicket = function(){
 	    if(!flagCreateTicket){
-	        var client =(_.filter(users, {'login':this.form.client.value}))[0];
-	        var admin =(_.filter(users, {'role':"Admin"}))[0];
+	        var client =(_.filter(users, {'login': this.form.client.value}))[0];
+	        var admin =(_.filter(users, {'role': 'Admin'}))[0];
 	        var newTicket = {
 	            id : Math.round((Math.random()*10000)),
-	            executorId: "Не назначен",
+	            executorId: 'Не назначен',
 	            clientId: client.id,
 	            description: this.form.details.value,
 	            estimated: this.form.estimated.value,
@@ -27935,7 +27905,7 @@
 	            percentReady: this.form.percent.value,
 	            priority: this.form.priority.value,
 	            status: this.form.status.value,
-	            commentId : [""]
+	            commentId : ['']
 	        };
 	        config.user.ticketsId.push(newTicket.id);
 	        admin.ticketsId.push(newTicket.id);
@@ -27956,7 +27926,7 @@
 	TaskCreateView.prototype.fetchData = function () {
 	    if (!this.promise) {
 	        var self = this;
-	        this.promise = request.getUsersList().then(function(data) { 
+	        this.promise = request.getUsersList().then(function(data) {
 	            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
 	            users = data;
 	        });
@@ -27999,10 +27969,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var View = __webpack_require__(9);
-	var config = __webpack_require__(6);
+	// var config = require('../../app.config');
 	var router = __webpack_require__(5);
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
+	var _ = __webpack_require__(14);
 	var template = __webpack_require__(24);
 	
 	var flagAddExecutor;
@@ -28027,8 +27998,8 @@
 	        var newUser = {
 	            id: this.form.newExecutor.value,
 	            login: this.form.newExecutor.value,
-	            ticketsId: [""],
-	            role: "Executor"
+	            ticketsId: [''],
+	            role: 'Executor'
 	        };
 	        request.saveUser(newUser);
 	        flagAddExecutor = true;
@@ -28069,10 +28040,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var View = __webpack_require__(9);
-	var config = __webpack_require__(6);
+	// var config = require('../../app.config');
 	var router = __webpack_require__(5);
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
+	var _ = __webpack_require__(14);
 	var template = __webpack_require__(26);
 	
 	var flagAddClient;
@@ -28094,12 +28066,12 @@
 	    this.el.on('click', '#addClient', this.addClient);
 	};
 	ClientRegView.prototype.addClient = function(){
-	    if (!flagAddClient){
+	    if (!flagAddClient) {
 	        var newUser = {
 	            id: this.form.newClient.value,
 	            login: this.form.newClient.value,
-	            ticketsId: [""],
-	            role: "Client"
+	            ticketsId: [''],
+	            role: 'Client'
 	        };
 	        request.saveUser(newUser);
 	        flagAddClient =true;
@@ -28110,7 +28082,7 @@
 	ClientRegView.prototype.fetchData = function () {
 	    if (!this.promise) {
 	        var self = this;
-	        this.promise = request.getUsersList().then(function(data) {
+	        this.promise = request.getUsersList().then(function (data) {
 	            self.userList = _.map(_.filter(data, {'role':'Client'}), 'login');
 	            return data;
 	        });
@@ -28145,6 +28117,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
+	var _ = __webpack_require__(14);
 	var template = __webpack_require__(28);
 	
 	var ticket;
@@ -28162,9 +28135,9 @@
 	TaskEditView.prototype.render = function () {
 	    var data = this.getRenderData();
 	    this.el.html(this.template(data));
-	    if (config.user.role != "Admin") {
-	        $(".estimated").hide();
-	        $(".deadline").hide();
+	    if (config.user.role != 'Admin') {
+	        $('.estimated').hide();
+	        $('.deadline').hide();
 	    }
 	};
 	
@@ -28181,7 +28154,7 @@
 	    ticket.clientId = (_.find(users, {'login': ticket.clientId}));
 	    ticket.clientId = ticket.clientId.id;
 	    if (!ticket.executorId){
-	        ticket.executorId = "Не назначен";
+	        ticket.executorId = 'Не назначен';
 	    } else {
 	        ticket.executorId = ticket.executorId.id;
 	    }
@@ -28240,6 +28213,7 @@
 	var router = __webpack_require__(5);
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
+	var _ = __webpack_require__(14);
 	var template = __webpack_require__(30);
 	
 	var users = [];

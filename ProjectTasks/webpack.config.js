@@ -32,7 +32,8 @@ module.exports = {
           loaders: [
               { test: /\.css$/, loader: "style!css" },
               { test: /\.html?$/, loader: 'html' },
-              { test: /\.ejs$/, loader: 'ejs-loader'}
+              { test: /\.ejs$/, loader: 'ejs-loader'},
+	      {	test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
           ]
       },
       devtool: 'source-map'

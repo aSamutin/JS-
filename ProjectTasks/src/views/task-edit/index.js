@@ -4,6 +4,7 @@ var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
+var _ = require('lodash');
 var template = require('./task-edit.ejs');
 
 var ticket;
@@ -21,9 +22,9 @@ inherit(TaskEditView, View);
 TaskEditView.prototype.render = function () {
     var data = this.getRenderData();
     this.el.html(this.template(data));
-    if (config.user.role != "Admin") {
-        $(".estimated").hide();
-        $(".deadline").hide();
+    if (config.user.role != 'Admin') {
+        $('.estimated').hide();
+        $('.deadline').hide();
     }
 };
 
@@ -40,7 +41,7 @@ TaskEditView.prototype.saveEdit = function(){
     ticket.clientId = (_.find(users, {'login': ticket.clientId}));
     ticket.clientId = ticket.clientId.id;
     if (!ticket.executorId){
-        ticket.executorId = "Не назначен";
+        ticket.executorId = 'Не назначен';
     } else {
         ticket.executorId = ticket.executorId.id;
     }

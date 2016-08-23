@@ -4,6 +4,7 @@ var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
+var _ = require('lodash');
 var template = require('./task-details.ejs');
 var templateComment = require('./create-comment.ejs');
 var commentItem =require('./comment.ejs');
@@ -46,12 +47,12 @@ TaskView.prototype.openCreateComment = function(){
         $('#openCreateComment').hide();
         $('.comments').append(templateComment());
         flagOCC = true;
-        flafAC = false;
+        flagAC = false;
     }
 };
 TaskView.prototype.addComment = function(){
     flagOCC = false;
-    if (!flafAC){
+    if (!flagAC){
         var comment = {
             id: Math.random(),
             userId: config.user.id,
@@ -69,7 +70,7 @@ TaskView.prototype.addComment = function(){
             ticket.clientId = (_.find(usersList, {'login': ticket.clientId})).id;
         }
         request.editTicket(ticket);
-        flafAC = true;
+        flagAC = true;
     }
 };
 
@@ -77,9 +78,9 @@ TaskView.prototype.render = function (){
     var data = this.getRenderData();
     this.el.html(this.template(data));
 
-    if (config.user.role != "Admin"){
+    if (config.user.role != 'Admin'){
         $('#openSelectExecutor').hide();
-    } else if (data.ticket.executorId != "Не назначен"){
+    } else if (data.ticket.executorId != 'Не назначен'){
         $('#openSelectExecutor').hide();
     }
 };
@@ -89,7 +90,7 @@ TaskView.prototype.getRenderData = function() {
     ticket.deadline = (ticket.deadline).slice(0,10);
 
     if (!ticket.executorId){
-        ticket.executorId = "Не назначен";
+        ticket.executorId = 'Не назначен';
     } else {
         ticket.executorId= ticket.executorId.login;
     }
@@ -119,7 +120,7 @@ TaskView.prototype.fetchData = function () {
         });
 
         usersList = this.usersList;
-        tickId = this.task_id;
+      //  tickId = this.task_id;
     }
     return this.promise;
 };

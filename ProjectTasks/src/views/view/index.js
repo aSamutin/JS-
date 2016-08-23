@@ -24,7 +24,7 @@ View.prototype.fetchData = function () {
         then: function (callback) {
             callback();
         }
-    }
+    };
 };
 
 /**

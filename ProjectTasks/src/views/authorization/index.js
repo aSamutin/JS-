@@ -29,23 +29,23 @@ AuthView.prototype.openClientReg = function() {
 
 AuthView.prototype.getUser = function (event) {
     event.preventDefault();
-    var username = $("input[name = 'username']").val();
+    var username = $('input[name = "username"]').val();
     request.getUser(username).then( function(user) {
         var activeUser = user[0];
         if (activeUser){
             config.user = activeUser;
-	    request.activeUser(activeUser);
+            request.activeUser(activeUser);
             router.navigate('task-list');
-        } else if(username == "Admin") {
+        } else if(username == 'Admin') {
             var newUser = {
                 id: 1,
-                login: "Admin",
-                ticketsId: [""],
-                role: "Admin"
+                login: 'Admin',
+                ticketsId: [''],
+                role: 'Admin'
             };
             config.user = newUser;
             request.saveUser(newUser);
-	    request.activeUser(activeUser);
+            request.activeUser(activeUser);
             router.navigate('task-list');
         } else {
             alert('Пользователь не найден');
