@@ -26,15 +26,13 @@ module.exports = {
     },
     getTicketsList: function (ticketsId) {
         let filter = {where: {id: {inq: ticketsId}}};
-        filter = 'filter=' + JSON.stringify(filter);
-        filter = encodeURIComponent(filter);
+        filter = 'filter=' + encodeURIComponent(JSON.stringify(filter));
         return fetch(`/api/Tickets?${filter}`)
         .then(response => response.json());
     },
     getComments: function (commentsId) {
         let filter = {where: {id: {inq: commentsId}}};
-        filter = 'filter=' + JSON.stringify(filter);
-        filter = encodeURIComponent(filter);
+        filter = 'filter=' + encodeURIComponent(JSON.stringify(filter));
         return fetch(`/api/Comments?${filter}`)
         .then(response => response.json());
     },

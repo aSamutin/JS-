@@ -428,8 +428,7 @@
 	    if (config.currentPage.close) {
 	        config.currentPage.close();
 	    }
-	    var view = views[path]; 
-	    location.hash = path;
+	    var view = views[path];
 	    config.currentPage = new view(params);
 	    config.currentPage.fetchData().then(function() {
 	        config.currentPage.render();
@@ -443,8 +442,17 @@
 	    }
 	};
 	
-	module.exports = Router;
+	window.addEventListener('hashchange', function(){
+	    var Hash = location.hash;
+	    var path = (Hash).substring(1);
+	    if ((path === 'task')||(path === 'task-edit')||(path === 'sel-executor')) {
+	        Router.navigate(path, config.ticket);
+	    } else {
+	        Router.navigate(path);
+	    }
+	});
 	
+	module.exports = Router;
 
 
 /***/ },
@@ -457,6 +465,7 @@
 	    user: null,
 	    role: null,
 	    tickets: null,
+	    ticket: null,
 	    currentPage: {},
 	    appElement: $('#app'),
 	    timing: 200
@@ -10559,6 +10568,7 @@
 	    this.super.constructor.apply(this);
 	    config.user = null;
 	    this.template = template();
+	    location.hash = 'auth';
 	};
 	
 	inherit(AuthView, View);
@@ -10707,15 +10717,13 @@
 	    },
 	    getTicketsList: function (ticketsId) {
 	        let filter = {where: {id: {inq: ticketsId}}};
-	        filter = 'filter=' + JSON.stringify(filter);
-	        filter = encodeURIComponent(filter);
+	        filter = 'filter=' + encodeURIComponent(JSON.stringify(filter));
 	        return fetch(`/api/Tickets?${filter}`)
 	        .then(response => response.json());
 	    },
 	    getComments: function (commentsId) {
 	        let filter = {where: {id: {inq: commentsId}}};
-	        filter = 'filter=' + JSON.stringify(filter);
-	        filter = encodeURIComponent(filter);
+	        filter = 'filter=' + encodeURIComponent(JSON.stringify(filter));
 	        return fetch(`/api/Comments?${filter}`)
 	        .then(response => response.json());
 	    },
@@ -10800,6 +10808,7 @@
 	    this.taskList = [];
 	    this.userList = [];
 	    this.keySort = keySort;
+	    location.hash = 'task-list';
 	};
 	
 	inherit(TaskListView, View);
@@ -10913,6 +10922,7 @@
 	        commentsId: comm,
 	        users: usersList
 	    };
+	    config.ticket = ticket;
 	    router.navigate('task', ticket);
 	};
 	
@@ -10951,7 +10961,7 @@
 	            usersList = data;
 	        });
 	
-	        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
+	        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) { 
 	            self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
 	            tickets = self.taskList;
 	            return data;
@@ -27677,6 +27687,7 @@
 	    this.usersList = ticket.users;
 	    this.taskData = null;
 	    this.taskComments = [];
+	    location.hash = 'task';
 	};
 	
 	inherit(TaskView, View);
@@ -27689,10 +27700,12 @@
 	};
 	
 	TaskView.prototype.openEditTask = function(){
+	    config.ticket = ticket;
 	    router.navigate('task-edit', ticket);
 	};
 	
 	TaskView.prototype.openSelectExecutor = function(){
+	    config.ticket = ticket;
 	    router.navigate('sel-executor', ticket);
 	};
 	
@@ -27876,6 +27889,7 @@
 	    this.template = template;
 	    this.promise = null;
 	    this.userList = [];
+	    location.hash = 'task-create';
 	};
 	
 	inherit(TaskCreateView, View);
@@ -27982,6 +27996,7 @@
 	    this.super.constructor.apply(this);
 	    this.template = template;
 	    this.promise = null;
+	    location.hash = 'reg-executor';
 	};
 	
 	inherit(ExecutorRegView, View);
@@ -28053,6 +28068,7 @@
 	    this.super.constructor.apply(this);
 	    this.template = template;
 	    this.promise = null;
+	    location.hash = 'reg-client';
 	};
 	
 	inherit(ClientRegView, View);
@@ -28122,12 +28138,14 @@
 	
 	var ticket;
 	var users;
+	var flagSaveEdit = false;
 	
 	var TaskEditView = function (tick) {
 	    this.super.constructor.apply(this);
 	    this.template = template;
 	    this.promise = null;
 	    this.ticket = tick;
+	    location.hash = 'task-edit';
 	};
 	
 	inherit(TaskEditView, View);
@@ -28142,25 +28160,29 @@
 	};
 	
 	TaskEditView.prototype.createEvents = function () {
+	    flagSaveEdit = true;
 	    this.el.on('click', '#saveEdit', this.saveEdit);
 	
 	};
 	TaskEditView.prototype.saveEdit = function(){
-	    ticket.estimated = this.form.estimated.value;
-	    ticket.deadline = this.form.deadline.value;
-	    ticket.percentReady = this.form.percent.value;
-	    ticket.status = this.form.status.value;
-	    ticket.executorId = (_.find(users, {'login': ticket.executorId}));
-	    ticket.clientId = (_.find(users, {'login': ticket.clientId}));
-	    ticket.clientId = ticket.clientId.id;
-	    if (!ticket.executorId){
-	        ticket.executorId = 'Не назначен';
-	    } else {
-	        ticket.executorId = ticket.executorId.id;
+	    if (flagSaveEdit) {
+	        ticket.estimated = this.form.estimated.value;
+	        ticket.deadline = this.form.deadline.value;
+	        ticket.percentReady = this.form.percent.value;
+	        ticket.status = this.form.status.value; alert(ticket.executorId);
+	        ticket.executorId = (_.find(users, {'login': ticket.executorId}));
+	        ticket.clientId = (_.find(users, {'login': ticket.clientId}));
+	        ticket.clientId = ticket.clientId.id;
+	        if (!ticket.executorId){
+	            ticket.executorId = 'Не назначен';
+	        } else {
+	            ticket.executorId = ticket.executorId.id;
+	        }
+	        request.editTicket(ticket);
+	        config.user.ticketsId = config.user.ticketsId;
+	        flagSaveEdit = false;
+	        router.navigate('task-list');
 	    }
-	    request.editTicket(ticket);
-	    config.user.ticketsId = config.user.ticketsId;
-	    router.navigate('task-list');
 	};
 	
 	TaskEditView.prototype.getRenderData = function () {
@@ -28225,6 +28247,7 @@
 	    this.promise = null;
 	    this.userList = [];
 	    this.ticket = tick;
+	    location.hash = 'sel-executor';
 	};
 	
 	inherit(ExecutorSelView, View);
