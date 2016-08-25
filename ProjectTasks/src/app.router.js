@@ -7,8 +7,7 @@ Router.navigate = function (path, params) {
     if (config.currentPage.close) {
         config.currentPage.close();
     }
-    var view = views[path]; 
-    location.hash = path;
+    var view = views[path];
     config.currentPage = new view(params);
     config.currentPage.fetchData().then(function() {
         config.currentPage.render();
@@ -22,5 +21,14 @@ Router.addView = function (path, func, defaultRoute) {
     }
 };
 
-module.exports = Router;
+window.addEventListener('hashchange', function(){
+    var Hash = location.hash;
+    var path = (Hash).substring(1);
+    if ((path === 'task')||(path === 'task-edit')||(path === 'sel-executor')) {
+        Router.navigate(path, config.ticket);
+    } else {
+        Router.navigate(path);
+    }
+});
 
+module.exports = Router;
