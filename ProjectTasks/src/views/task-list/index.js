@@ -18,6 +18,7 @@ var TaskListView = function (keySort) {
     this.taskList = [];
     this.userList = [];
     this.keySort = keySort;
+    location.hash = 'task-list';
 };
 
 inherit(TaskListView, View);
@@ -131,6 +132,7 @@ TaskListView.prototype.openTask = function (event) {
         commentsId: comm,
         users: usersList
     };
+    config.ticket = ticket;
     router.navigate('task', ticket);
 };
 
@@ -169,7 +171,7 @@ TaskListView.prototype.fetchData = function () {
             usersList = data;
         });
 
-        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
+        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) { 
             self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
             tickets = self.taskList;
             return data;

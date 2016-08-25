@@ -15,6 +15,7 @@ var TaskCreateView = function () {
     this.template = template;
     this.promise = null;
     this.userList = [];
+    location.hash = 'task-create';
 };
 
 inherit(TaskCreateView, View);

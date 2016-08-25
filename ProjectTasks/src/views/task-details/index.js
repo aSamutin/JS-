@@ -23,6 +23,7 @@ var TaskView = function (ticket) {
     this.usersList = ticket.users;
     this.taskData = null;
     this.taskComments = [];
+    location.hash = 'task';
 };
 
 inherit(TaskView, View);
@@ -35,10 +36,12 @@ TaskView.prototype.createEvents = function () {
 };
 
 TaskView.prototype.openEditTask = function(){
+    config.ticket = ticket;
     router.navigate('task-edit', ticket);
 };
 
 TaskView.prototype.openSelectExecutor = function(){
+    config.ticket = ticket;
     router.navigate('sel-executor', ticket);
 };
 

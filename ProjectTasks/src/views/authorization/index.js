@@ -10,6 +10,7 @@ var AuthView = function () {
     this.super.constructor.apply(this);
     config.user = null;
     this.template = template();
+    location.hash = 'auth';
 };
 
 inherit(AuthView, View);

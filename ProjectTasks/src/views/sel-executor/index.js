@@ -15,6 +15,7 @@ var ExecutorSelView = function (tick) {
     this.promise = null;
     this.userList = [];
     this.ticket = tick;
+    location.hash = 'sel-executor';
 };
 
 inherit(ExecutorSelView, View);

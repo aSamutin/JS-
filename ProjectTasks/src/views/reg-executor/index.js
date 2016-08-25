@@ -12,6 +12,7 @@ var ExecutorRegView = function () {
     this.super.constructor.apply(this);
     this.template = template;
     this.promise = null;
+    location.hash = 'reg-executor';
 };
 
 inherit(ExecutorRegView, View);
