@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
@@ -25,7 +25,8 @@ AuthView.prototype.createEvents = function () {
 };
 
 AuthView.prototype.openClientReg = function() {
-    router.navigate('reg-client');
+    // router.navigate('reg-client');
+    location.hash = 'reg-client';
 };
 
 AuthView.prototype.getUser = function (event) {
@@ -36,7 +37,8 @@ AuthView.prototype.getUser = function (event) {
         if (activeUser){
             config.user = activeUser;
             request.activeUser(activeUser);
-            router.navigate('task-list');
+            //  router.navigate('task-list');
+            location.hash = 'task-list';
         } else if(username == 'Admin') {
             var newUser = {
                 id: 1,
@@ -47,7 +49,8 @@ AuthView.prototype.getUser = function (event) {
             config.user = newUser;
             request.saveUser(newUser);
             request.activeUser(activeUser);
-            router.navigate('task-list');
+            //  router.navigate('task-list');
+            location.hash = 'task-list';
         } else {
             alert('Пользователь не найден');
         }

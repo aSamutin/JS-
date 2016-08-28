@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
@@ -60,7 +60,9 @@ TaskListView.prototype.sort = function(){
         'Статус': 'status',
     };
     var key = hTable[this.innerHTML];
-    router.navigate('task-list', key);
+    config.keySortTicket = key;
+    // router.navigate('task-list', key);
+    location.hash = 'task-list';
 };
 
 TaskListView.prototype.filter = function(){
@@ -113,11 +115,13 @@ TaskListView.prototype.find = function(){
 };
 
 TaskListView.prototype.openExecutorReg = function(){
-    router.navigate('reg-executor');
+    // router.navigate('reg-executor');
+    location.hash = 'reg-executor';
 };
 
 TaskListView.prototype.openCreateTask = function(){
-    router.navigate('task-create');
+    // router.navigate('task-create');
+    location.hash = 'task-create';
 };
 
 TaskListView.prototype.openTask = function (event) {
@@ -133,7 +137,8 @@ TaskListView.prototype.openTask = function (event) {
         users: usersList
     };
     config.ticket = ticket;
-    router.navigate('task', ticket);
+    // router.navigate('task', ticket);
+    location.hash = 'task';
 };
 
 TaskListView.prototype.close = function () {
@@ -171,7 +176,7 @@ TaskListView.prototype.fetchData = function () {
             usersList = data;
         });
 
-        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) { 
+        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
             self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
             tickets = self.taskList;
             return data;

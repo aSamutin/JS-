@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
@@ -52,7 +52,8 @@ TaskEditView.prototype.saveEdit = function(){
         request.editTicket(ticket);
         config.user.ticketsId = config.user.ticketsId;
         flagSaveEdit = false;
-        router.navigate('task-list');
+        // router.navigate('task-list');
+        location.hash = 'task-list';
     }
 };
 

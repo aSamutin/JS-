@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
@@ -37,12 +37,14 @@ TaskView.prototype.createEvents = function () {
 
 TaskView.prototype.openEditTask = function(){
     config.ticket = ticket;
-    router.navigate('task-edit', ticket);
+    // router.navigate('task-edit', ticket);
+    location.hash = 'task-edit';
 };
 
 TaskView.prototype.openSelectExecutor = function(){
     config.ticket = ticket;
-    router.navigate('sel-executor', ticket);
+    // router.navigate('sel-executor', ticket);
+    location.hash = 'sel-executor';
 };
 
 TaskView.prototype.openCreateComment = function(){

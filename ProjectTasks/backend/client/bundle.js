@@ -446,6 +446,9 @@
 	    var path = (Hash).substring(1);
 	    if ((path === 'task')||(path === 'task-edit')||(path === 'sel-executor')) {
 	        Router.navigate(path, config.ticket);
+	    } else if ((path === 'task-list')&&(config.keySortTicket != null)) {
+	        Router.navigate(path, config.keySortTicket);
+	        config.keySortTicket = null;
 	    } else {
 	        Router.navigate(path);
 	    }
@@ -465,6 +468,7 @@
 	    role: null,
 	    tickets: null,
 	    ticket: null,
+	    keySortTicket: null,
 	    currentPage: {},
 	    appElement: $('#app'),
 	    timing: 200
@@ -10557,7 +10561,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
@@ -10582,7 +10586,8 @@
 	};
 	
 	AuthView.prototype.openClientReg = function() {
-	    router.navigate('reg-client');
+	    // router.navigate('reg-client');
+	    location.hash = 'reg-client';
 	};
 	
 	AuthView.prototype.getUser = function (event) {
@@ -10593,7 +10598,8 @@
 	        if (activeUser){
 	            config.user = activeUser;
 	            request.activeUser(activeUser);
-	            router.navigate('task-list');
+	            //  router.navigate('task-list');
+	            location.hash = 'task-list';
 	        } else if(username == 'Admin') {
 	            var newUser = {
 	                id: 1,
@@ -10604,7 +10610,8 @@
 	            config.user = newUser;
 	            request.saveUser(newUser);
 	            request.activeUser(activeUser);
-	            router.navigate('task-list');
+	            //  router.navigate('task-list');
+	            location.hash = 'task-list';
 	        } else {
 	            alert('Пользователь не найден');
 	        }
@@ -10778,7 +10785,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
@@ -10838,7 +10845,9 @@
 	        'Статус': 'status',
 	    };
 	    var key = hTable[this.innerHTML];
-	    router.navigate('task-list', key);
+	    config.keySortTicket = key;
+	    // router.navigate('task-list', key);
+	    location.hash = 'task-list';
 	};
 	
 	TaskListView.prototype.filter = function(){
@@ -10891,11 +10900,13 @@
 	};
 	
 	TaskListView.prototype.openExecutorReg = function(){
-	    router.navigate('reg-executor');
+	    // router.navigate('reg-executor');
+	    location.hash = 'reg-executor';
 	};
 	
 	TaskListView.prototype.openCreateTask = function(){
-	    router.navigate('task-create');
+	    // router.navigate('task-create');
+	    location.hash = 'task-create';
 	};
 	
 	TaskListView.prototype.openTask = function (event) {
@@ -10911,7 +10922,8 @@
 	        users: usersList
 	    };
 	    config.ticket = ticket;
-	    router.navigate('task', ticket);
+	    // router.navigate('task', ticket);
+	    location.hash = 'task';
 	};
 	
 	TaskListView.prototype.close = function () {
@@ -10949,7 +10961,7 @@
 	            usersList = data;
 	        });
 	
-	        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) { 
+	        this.promise = request.getTicketsList(config.user.ticketsId).then(function (data) {
 	            self.taskList = _.sortBy( data, function(ticket){ return ticket[self.keySort]; });
 	            tickets = self.taskList;
 	            return data;
@@ -27652,7 +27664,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
@@ -27689,12 +27701,14 @@
 	
 	TaskView.prototype.openEditTask = function(){
 	    config.ticket = ticket;
-	    router.navigate('task-edit', ticket);
+	    // router.navigate('task-edit', ticket);
+	    location.hash = 'task-edit';
 	};
 	
 	TaskView.prototype.openSelectExecutor = function(){
 	    config.ticket = ticket;
-	    router.navigate('sel-executor', ticket);
+	    // router.navigate('sel-executor', ticket);
+	    location.hash = 'sel-executor';
 	};
 	
 	TaskView.prototype.openCreateComment = function(){
@@ -27861,7 +27875,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
@@ -27916,7 +27930,8 @@
 	        request.saveTicket(newTicket);
 	        flagCreateTicket = true;
 	    }
-	    router.navigate('task-list');
+	    // router.navigate('task-list');
+	    location.hash = 'task-list';
 	};
 	
 	
@@ -27970,7 +27985,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var View = __webpack_require__(9);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var _ = __webpack_require__(14);
@@ -28005,7 +28020,8 @@
 	        request.saveUser(newUser);
 	        flagAddExecutor = true;
 	    }
-	    router.navigate('task-list');
+	    // router.navigate('task-list');
+	    location.hash = 'task-list';
 	};
 	
 	ExecutorRegView.prototype.fetchData = function () {
@@ -28041,7 +28057,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var View = __webpack_require__(9);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var _ = __webpack_require__(14);
@@ -28077,7 +28093,8 @@
 	        request.saveUser(newUser);
 	        flagAddClient =true;
 	    }
-	    router.navigate('auth');
+	    // router.navigate('auth');
+	    location.hash = 'auth';
 	};
 	
 	ClientRegView.prototype.fetchData = function () {
@@ -28114,7 +28131,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
@@ -28166,7 +28183,8 @@
 	        request.editTicket(ticket);
 	        config.user.ticketsId = config.user.ticketsId;
 	        flagSaveEdit = false;
-	        router.navigate('task-list');
+	        // router.navigate('task-list');
+	        location.hash = 'task-list';
 	    }
 	};
 	
@@ -28217,7 +28235,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	var router = __webpack_require__(5);
+	// var router = require('../../app.router');
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var _ = __webpack_require__(14);
@@ -28256,7 +28274,8 @@
 	    request.editUser(executor);
 	    request.editTicket(ticket);
 	    config.user.ticketId = config.user.ticketId;
-	    router.navigate('task-list');
+	    // router.navigate('task-list');
+	    location.hash = 'task-list';
 	};
 	
 	ExecutorSelView.prototype.getRenderData = function () {

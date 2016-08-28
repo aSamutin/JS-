@@ -1,5 +1,5 @@
 var View = require('../view');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var _ = require('lodash');
@@ -35,7 +35,8 @@ ClientRegView.prototype.addClient = function(){
         request.saveUser(newUser);
         flagAddClient =true;
     }
-    router.navigate('auth');
+    // router.navigate('auth');
+    location.hash = 'auth';
 };
 
 ClientRegView.prototype.fetchData = function () {

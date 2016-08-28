@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
@@ -55,7 +55,8 @@ TaskCreateView.prototype.addTicket = function(){
         request.saveTicket(newTicket);
         flagCreateTicket = true;
     }
-    router.navigate('task-list');
+    // router.navigate('task-list');
+    location.hash = 'task-list';
 };
 
 

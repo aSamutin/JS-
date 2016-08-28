@@ -1,5 +1,5 @@
 var View = require('../view');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var _ = require('lodash');
@@ -34,7 +34,8 @@ ExecutorRegView.prototype.addExecutor = function(){
         request.saveUser(newUser);
         flagAddExecutor = true;
     }
-    router.navigate('task-list');
+    // router.navigate('task-list');
+    location.hash = 'task-list';
 };
 
 ExecutorRegView.prototype.fetchData = function () {

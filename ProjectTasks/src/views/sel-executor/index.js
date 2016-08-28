@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-var router = require('../../app.router');
+// var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var _ = require('lodash');
@@ -39,7 +39,8 @@ ExecutorSelView.prototype.selectExecutor = function(){
     request.editUser(executor);
     request.editTicket(ticket);
     config.user.ticketId = config.user.ticketId;
-    router.navigate('task-list');
+    // router.navigate('task-list');
+    location.hash = 'task-list';
 };
 
 ExecutorSelView.prototype.getRenderData = function () {
