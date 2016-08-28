@@ -1,5 +1,4 @@
 var View = require('../view');
-// var config = require('../../app.config');
 var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');

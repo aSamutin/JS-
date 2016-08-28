@@ -123,7 +123,6 @@ TaskView.prototype.fetchData = function () {
         });
 
         usersList = this.usersList;
-      //  tickId = this.task_id;
     }
     return this.promise;
 };

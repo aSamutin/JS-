@@ -1,6 +1,5 @@
 require('../style/style.css');
 var router = require('./app.router');
-// var config = require('./app.config');
 
 
 var AuthView = require('./views/authorization');

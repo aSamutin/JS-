@@ -46,7 +46,6 @@
 
 	__webpack_require__(1);
 	var router = __webpack_require__(5);
-	// var config = require('./app.config');
 	
 	
 	var AuthView = __webpack_require__(8);
@@ -10690,17 +10689,6 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	// var _ = require('lodash');
-	// var $ = require('jquery');
-	//var config = require('../app.config');
-	
-	// var timing = config.timing;
-	// var callbackAfter = null;
-	// var returnData = {
-	//     then: function (callback) {
-	//         callbackAfter = callback;
-	//     }
-	// };
 	
 	module.exports = {
 	    getUsersList: function () {
@@ -27787,7 +27775,6 @@
 	        });
 	
 	        usersList = this.usersList;
-	      //  tickId = this.task_id;
 	    }
 	    return this.promise;
 	};
@@ -27983,7 +27970,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var View = __webpack_require__(9);
-	// var config = require('../../app.config');
 	var router = __webpack_require__(5);
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
@@ -28055,7 +28041,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var View = __webpack_require__(9);
-	// var config = require('../../app.config');
 	var router = __webpack_require__(5);
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);

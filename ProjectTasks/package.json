@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "jQuery": "^1.7.4",
+    "jquery": "^1.7.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "lodash": "^4.13.1",
