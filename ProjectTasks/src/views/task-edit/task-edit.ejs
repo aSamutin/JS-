@@ -1,29 +1,24 @@
 <div class="edit-ticket">
+  <div class="close">
+    <img src="/image/close.png">
+  </div>
 <form action="javascript:void(0);" method="get" name="edit-ticket">
   <h2>Изменение заявки</h2>
-  <div class="half-width">
-    <label> Статус <br>
+    <label class="one-line"> Статус <br>
       <select name="status">
         <option value="Open">Open</option>
         <option value="Closed">Closed</option>
       </select>
     </label>
-  </div>
-  <div class="half-width estimated">
-    <label>Estimated
+    <label class="one-line">Estimated<br>
       <input type="text" name="estimated" value=<%=ticket.estimated %>>
-    </label>
-   </div>
-   <div class="half-width deadline">
-     <label>deadline
+    </label  class="one-line">
+     <label  class="one-line">deadline<br>
        <input type="date" name="deadline" value="<%=ticket.deadline %>">
      </label>
-   </div>
-   <div class="half-width percent">
-     <label>готовность (%)
+     <label  class="one-line">готовность (%)<br>
        <input type="number" name="percent" max="100" min="0" step="1" value="<%=ticket.percentReady%>">
-     </label>
-   </div>
+     </label><br>
    <input type="submit" value="Сохранить изменения" id="saveEdit">
 </form>
-</div> 
+</div>

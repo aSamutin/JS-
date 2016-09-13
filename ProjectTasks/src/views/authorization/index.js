@@ -16,6 +16,7 @@ var AuthView = function () {
 inherit(AuthView, View);
 
 AuthView.prototype.render = function () {
+    history.pushState({}, 'Авторизация', '/#auth');
     this.el.html(this.template);
 };
 
@@ -52,7 +53,10 @@ AuthView.prototype.getUser = function (event) {
             //  router.navigate('task-list');
             location.hash = 'task-list';
         } else {
-            alert('Пользователь не найден');
+            $('.valid').addClass('error');
+            setTimeout(function(){
+                $('.valid').removeClass('error');
+            },5000);
         }
     });
 };

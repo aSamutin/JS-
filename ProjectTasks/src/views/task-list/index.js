@@ -1,6 +1,6 @@
 var View = require('../view');
 var config = require('../../app.config');
-// var router = require('../../app.router');
+var router = require('../../app.router');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var $ = require('jquery/dist/jquery');
@@ -24,6 +24,7 @@ var TaskListView = function (keySort) {
 inherit(TaskListView, View);
 
 TaskListView.prototype.render = function () {
+    history.pushState({}, 'Список заявок', '/#task-list');
     var data = this.getRenderData();
     this.el.html(this.template(data));
     switch (config.user.role) {
@@ -45,6 +46,7 @@ TaskListView.prototype.createEvents = function () {
     this.el.on('click', '.headSort th', this.sort);
     this.el.on('click', '#filter', this.filter);
     this.el.on('click', '#find', this.find);
+    this.el.on('click', '#exit', this.exit);
 };
 
 TaskListView.prototype.sort = function(){
@@ -61,8 +63,12 @@ TaskListView.prototype.sort = function(){
     };
     var key = hTable[this.innerHTML];
     config.keySortTicket = key;
-    // router.navigate('task-list', key);
-    location.hash = 'task-list';
+    router.navigate('task-list', key);
+    // location.hash = 'task-list';
+};
+
+TaskListView.prototype.exit = function(){
+    location.hash = 'auth';
 };
 
 TaskListView.prototype.filter = function(){
@@ -77,7 +83,7 @@ TaskListView.prototype.filter = function(){
         filterTickets = _.filter(tickets, {clientId:this.form.client.value, status:this.form.status.value});
     }
 
-    $('#app').html(template({list:filterTickets, usersList:users}));
+    $('#app').html(template({list:filterTickets, usersList:users, user: config.user.login}));
     $('select[name="client"]').val(this.form.client.value);
     $('select[name="status"]').val(this.form.status.value);
 
@@ -100,7 +106,7 @@ TaskListView.prototype.find = function(){
     if (!searchTicket[0]){
         searchTicket = [];
     }
-    $('#app').html(template({list:searchTicket, usersList:users}));
+    $('#app').html(template({list:searchTicket, usersList:users, user: config.user.login}));
 
     switch (config.user.role) {
     case 'Executor':
@@ -163,7 +169,9 @@ TaskListView.prototype.getRenderData = function () {
     }
     return {
         list: tickets,
-        usersList: this.userList
+        usersList: this.userList,
+        user: config.user.login
+
     };
 };
 

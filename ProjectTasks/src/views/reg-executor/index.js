@@ -3,6 +3,7 @@ var View = require('../view');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var _ = require('lodash');
+var $ = require('jquery/dist/jquery');
 var template = require('./reg-executor.ejs');
 
 var flagAddExecutor;
@@ -18,10 +19,18 @@ inherit(ExecutorRegView, View);
 
 ExecutorRegView.prototype.render = function () {
     flagAddExecutor = false;
-    this.el.html(this.template());
+    //this.el.html(this.template());
+    this.popup.addClass('on');
+    this.popup.html(this.template());
 };
 ExecutorRegView.prototype.createEvents = function () {
-    this.el.on('click', '#addExecutor', this.addExecutor);
+    this.popup.on('click', '#addExecutor', this.addExecutor);
+    this.popup.on('click', '.close', this.closePopup);
+};
+ExecutorRegView.prototype.closePopup = function(){
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
 };
 ExecutorRegView.prototype.addExecutor = function(){
     if (!flagAddExecutor){
@@ -35,7 +44,10 @@ ExecutorRegView.prototype.addExecutor = function(){
         flagAddExecutor = true;
     }
     // router.navigate('task-list');
-    location.hash = 'task-list';
+    // location.hash = 'task-list';
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
 };
 
 ExecutorRegView.prototype.fetchData = function () {

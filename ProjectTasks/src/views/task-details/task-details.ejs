@@ -1,13 +1,16 @@
-<div class="detail-ticket">  
+<div class="detail-ticket">
+  <div class="welcome">
+    <span>Здравствуйте, <i><%=user%></i></span>
+    <input type="submit" value="Выйти" id="exit">
+  </div>
   <input type="submit" value="Назначить исполнителя" id="openSelectExecutor">
   <input type="submit" value="Изменить заявку" id="openEditTicket">
   <table>
-    <caption><h2>Заявка № <span><%=ticket.id%></span></h2><caption>
+    <caption><h2>Заявка № <span><%=ticket.id%></span></h2></caption>
     <thead>
     <tr>
         <th>Клиент</th>
         <th>Исполнитель</th>
-        <th>Описание</th>
         <th>Приоритет</th>
         <th>Estimated</th>
         <th>Deadline</th>
@@ -24,9 +27,6 @@
           <%=ticket.executorId%>
         </td>
         <td>
-          <%=ticket.description%>
-        </td>
-        <td>
           <%=ticket.priority%>
         </td>
         <td>
@@ -41,9 +41,13 @@
         <td>
           <%=ticket.status%>
         </td>
-      </tr> 
+      </tr>
     </tbody>
-    </table> 
+    </table>
+    <div class="description">
+      <h2>Описание</h2>
+      <%=ticket.description%>
+    </div>
     <div class="comments">
       <h2>Комментарии</h2>
       <% for( var i = comment.length-1; i >= 0  ; i--) {%>

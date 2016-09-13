@@ -5,6 +5,7 @@ var config = require('../../app.config');
  */
 function View () {
     this.el = config.appElement;
+    this.popup = config.popupElement;
     this.createEvents();
 }
 

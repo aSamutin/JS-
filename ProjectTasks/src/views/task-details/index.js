@@ -33,6 +33,7 @@ TaskView.prototype.createEvents = function () {
     this.el.on('click', '#openSelectExecutor', this.openSelectExecutor);
     this.el.on('click', '#openCreateComment', this.openCreateComment);
     this.el.on('click', '#addComment', this.addComment);
+    this.el.on('click', '#exit', this.exit);
 };
 
 TaskView.prototype.openEditTask = function(){
@@ -80,6 +81,7 @@ TaskView.prototype.addComment = function(){
 };
 
 TaskView.prototype.render = function (){
+    history.pushState({}, 'Просмотр заявки', '/#task');
     var data = this.getRenderData();
     this.el.html(this.template(data));
 
@@ -107,8 +109,13 @@ TaskView.prototype.getRenderData = function() {
     }
     return {
         ticket: ticket,
-        comment: this.taskComments
+        comment: this.taskComments,
+        user: config.user.login
     };
+};
+
+TaskView.prototype.exit = function(){
+    location.hash = 'auth';
 };
 
 TaskView.prototype.fetchData = function () {

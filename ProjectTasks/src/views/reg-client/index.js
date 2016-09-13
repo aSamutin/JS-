@@ -3,6 +3,7 @@ var View = require('../view');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var _ = require('lodash');
+var $ = require('jquery/dist/jquery');
 var template = require('./reg-client.ejs');
 
 var flagAddClient;
@@ -18,11 +19,14 @@ inherit(ClientRegView, View);
 
 ClientRegView.prototype.render = function () {
     flagAddClient = false;
-    this.el.html(this.template());
+    //this.el.html(this.template());
+    this.popup.addClass('on');
+    this.popup.html(this.template());
 };
 
 ClientRegView.prototype.createEvents = function () {
-    this.el.on('click', '#addClient', this.addClient);
+    this.popup.on('click', '#addClient', this.addClient);
+    this.popup.on('click', '.close', this.closePopup);
 };
 ClientRegView.prototype.addClient = function(){
     if (!flagAddClient) {
@@ -36,7 +40,17 @@ ClientRegView.prototype.addClient = function(){
         flagAddClient =true;
     }
     // router.navigate('auth');
-    location.hash = 'auth';
+    // location.hash = 'auth';
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+
+    window.history.go(-1);
+};
+
+ClientRegView.prototype.closePopup = function(){
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
 };
 
 ClientRegView.prototype.fetchData = function () {

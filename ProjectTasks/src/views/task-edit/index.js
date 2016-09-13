@@ -23,7 +23,8 @@ inherit(TaskEditView, View);
 
 TaskEditView.prototype.render = function () {
     var data = this.getRenderData();
-    this.el.html(this.template(data));
+    this.popup.addClass('on');
+    this.popup.html(this.template(data));
     if (config.user.role != 'Admin') {
         $('.estimated').hide();
         $('.deadline').hide();
@@ -32,9 +33,17 @@ TaskEditView.prototype.render = function () {
 
 TaskEditView.prototype.createEvents = function () {
     flagSaveEdit = true;
-    this.el.on('click', '#saveEdit', this.saveEdit);
+    this.popup.on('click', '#saveEdit', this.saveEdit);
+    this.popup.on('click', '.close', this.closePopup);
 
 };
+
+TaskEditView.prototype.closePopup = function(){
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
+};
+
 TaskEditView.prototype.saveEdit = function(){
     if (flagSaveEdit) {
         ticket.estimated = this.form.estimated.value;
@@ -53,7 +62,10 @@ TaskEditView.prototype.saveEdit = function(){
         config.user.ticketsId = config.user.ticketsId;
         flagSaveEdit = false;
         // router.navigate('task-list');
+        $('#popup div').fadeOut();
+        $('#popup').removeClass('on');
         location.hash = 'task-list';
+        // window.history.go(-1);
     }
 };
 

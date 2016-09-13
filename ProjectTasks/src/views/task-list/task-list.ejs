@@ -1,40 +1,44 @@
 <div class="list-tickets">
-  <input type="submit" value="Создать исполнителя" id="openCreateExecutor">
-  <input type="submit" value="Создать заявку" id="openCreateTicket">
-  <div class="filter">
-    <form action="javascript:void(0);" method="get" name="filter">
-      <div class="half-width">
-        <label> Статус
-          <select name="status">
-            <option value="All">All</option>
-            <option value="Open">Open</option>
-            <option value="Closed">Closed</option>
-          </select>
-        </label>
-      </div>
-      <div class="half-width">
-        <label> Клиент
-          <select name="client">
-            <option value="All">All</option>
-              <% for( var i = 0; i < usersList.length; i++) {%>
-                  <option value="<%=usersList[i]%>"><%=usersList[i]%></option>
-              <% }; %>
-          </select>
-        </label>
-      </div>
-      <input type="submit" value="Показать" id="filter">
-    </form>
+  <div class="welcome">
+    <span>Здравствуйте, <i><%=user%></i></span>
+    <input type="submit" value="Выйти" id="exit">
   </div>
-
-  <div class="search">
-    <form action="javascript:void(0);" method="get" name="search">
-      <input type="number" name="search" placeholder="поиск по заявкам">
-      <input type="submit" id="find" value="Найти">
-    </form>
+  <div class="operations">
+    <input type="submit" value="Создать исполнителя" id="openCreateExecutor" class="one-line">
+    <input type="submit" value="Создать заявку" id="openCreateTicket"  class="one-line">
+    <div class="search one-line">
+      <form action="javascript:void(0);" method="get" name="search">
+          <input type="number" name="search" placeholder="Поиск по заявкам" class="one-line">
+          <input type="submit" id="find" value="Найти" class="one-line">
+      </form>
+    </div>
   </div>
-  <div class="filterForm"></div>
+    <div class="filter">
+      <form action="javascript:void(0);" method="get" name="filter">
+        <div class="half-width">
+          <label> Статус
+            <select name="status">
+              <option value="All">All</option>
+              <option value="Open">Open</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </label>
+        </div>
+        <div class="half-width">
+          <label> Клиент
+            <select name="client">
+              <option value="All">All</option>
+                <% for( var i = 0; i < usersList.length; i++) {%>
+                    <option value="<%=usersList[i]%>"><%=usersList[i]%></option>
+                <% }; %>
+            </select>
+          </label>
+        </div>
+        <input type="submit" value="Показать" id="filter">
+      </form>
+    </div>
     <table>
-        <caption><h2>Список заявок</h2><caption>
+        <caption><h2>Список заявок</h2></caption>
         <thead>
             <tr class="headSort">
                 <th>Номер заявки</th>

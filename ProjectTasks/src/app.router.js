@@ -26,9 +26,6 @@ window.addEventListener('hashchange', function(){
     var path = (Hash).substring(1);
     if ((path === 'task')||(path === 'task-edit')||(path === 'sel-executor')) {
         Router.navigate(path, config.ticket);
-    } else if ((path === 'task-list')&&(config.keySortTicket != null)) {
-        Router.navigate(path, config.keySortTicket);
-        config.keySortTicket = null;
     } else {
         Router.navigate(path);
     }

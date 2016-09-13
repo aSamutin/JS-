@@ -23,14 +23,23 @@ inherit(TaskCreateView, View);
 
 TaskCreateView.prototype.render = function () {
     var data = this.getRenderData();
-    this.el.html(this.template(data));
+    this.popup.addClass('on');
+    this.popup.html(this.template(data));
     $('input[name = "deadline"]').val((new Date().toISOString()).slice(0, 10));
     flagCreateTicket = false;
 };
 
 TaskCreateView.prototype.createEvents = function () {
-    this.el.on('click', '#addTicket', this.addTicket);
+    this.popup.on('click', '#addTicket', this.addTicket);
+    this.popup.on('click', '.close', this.closePopup);
 };
+
+TaskCreateView.prototype.closePopup = function(){
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
+};
+
 TaskCreateView.prototype.addTicket = function(){
     if(!flagCreateTicket){
         var client =(_.filter(users, {'login': this.form.client.value}))[0];
@@ -56,7 +65,11 @@ TaskCreateView.prototype.addTicket = function(){
         flagCreateTicket = true;
     }
     // router.navigate('task-list');
-    location.hash = 'task-list';
+    // location.hash = 'task-list';
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+
+    window.history.go(-1);
 };
 
 

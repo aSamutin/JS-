@@ -1,104 +1,315 @@
-form, .list-tickets, .detail-ticket, .comment{
+body {
+  margin:0;
+  padding:0;
+  background: url('/image/bk.jpg');
+}
+#app {
+  min-width: 1225px;
+}
+
+#popup.on{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.authorization, .registration, .registration-executor, .select-executor {
+  box-sizing: border-box;
+  width: 300px;
+  height: 212px;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  margin: -150px 0 0 -150px;
+  padding: 15px;
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 10px;
+  background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);
+  color: white;
+}
+
+ h2 {
+  font-size: 30px;
+  text-align: left;
+  margin: 0 0 20px;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 5px 5px;
+  width: 100%;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.authorization input[type="submit"] {
+    position:absolute;
+    left: 50%;
+    margin-left: -75px;
+    margin-top: 2px;
+}
+.registration  input[type="submit"],
+.registration-executor input[type="submit"] {
+    position:absolute;
+    left: 50%;
+    margin-left: -75px;
+    bottom: 25px;
+}
+
+.authorization input[type="submit"]:last-of-type {
+  bottom: -5px;
+}
+
+.valid.error::after {
+  background-color: red;
+  content:'Неправильный логин';
+  margin-top: -56px;
+  margin-left: -4px;
+  padding-top: 36px;
+  text-align: center;
+  width: 278px;
+  display: block;
+}
+
+input[type="submit"] {
+  color: white;
+  width: 150px;
+  background: linear-gradient(to top, #b5bdc8 0%, #828c95 1%, #28343b 100%);
+  border-radius: 5px;
+}
+
+.list-tickets, .detail-ticket {
+    color: white;
     margin: 10px auto;
     padding: 20px;
     width: 500px;
     border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 2px #ccc;
+    background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);
 }
-form[name="authorization"]{
-  margin-top: 200px;
-}
-form[name="search"]{
-  width: 30%;
-  float: right;
-}
-form[name="filter"]{
-  width: 60%;
-  float: left;  
-}
- .comment {
-   margin: 10px auto;
-}
-.new-comment {
-  margin-top: 10px;
+.list-tickets input, .detail-ticket input {
+  margin-right: 15px;
 }
 .list-tickets, .detail-ticket {
-  width: 95%;
-  margin: 10px auto;
-  min-height: 200px;
-}
-
-h2 {
-    text-align: center;
-    margin:0 0 10px 0;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"], select, input[type="date"], input[type="number"] {
-    margin-bottom: 10px;
-    padding: 2px 5px;
-    width: 95%;
-    height: 24px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-textarea {
-  width: 95%;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-input[type="submit"] {
-    display: inline-block;
-    margin: 0;
-    padding: 6px 15px;
-    width: auto;
-    border: none;
-    border-radius: 5px;
-    background: #2c3e50;
-    color: #fff;
-
-}
-
-.half-width {
-    display: inline-block;
-    margin-right: -4px;
-    width: 50%;
-}
-
-.half-width input,
-.half-width select {
-    width: 80%;
-}
-.list-tickets, .detail-ticket, .new-ticket, .new-comment,
-.registration, .registration-executor, .select-executor, .edit-ticket {
-   display: block;
-}
-.list-tickets {
   margin: 20px auto;
   width: 90%;
+  position: relative;
 }
+.welcome {
+    float:right;
+    color: white;
+}
+.welcome i {
+  margin-right:10px;
+}
+.operations {
+  border-bottom: 1px ridge white;
+  margin-bottom: 16px;
+}
+.half-width {
+    display: inline-block;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
+table h2 {
+  margin: 0px;
+}
+table caption {
+  padding: 10px;
+  background: #2c3e50;
+  border: 1px solid white;
+  border-bottom: none;
+  padding-left:18%;
+}
+.detail-ticket table caption {
+  padding-left: 10px;
+}
+.detail-ticket table caption h2{
+  text-align: center;
+}
 table tr, table th, table td {
-  border: 1px solid;
-  padding: 5px;
+  border: 1px solid white;
+  padding: 15px;
 }
 table th {
   background: #2c3e50;
   color: #fff;
 }
-.message {
-  width: 100%;
-  text-align: center;
+table td {
+  color: black;
 }
-#openCreateComment, #addTicket {
-   margin: 10px 43%;
+
+table tbody tr:nth-of-type(2n){
+  background-color: rgba(102, 103, 110, 0.32);
+}
+table tbody tr:hover {
+  background-color: rgba(44, 62, 80, 0.68);
+}
+
+.close {
+    position: absolute;
+    top: -9px;
+    right: -18px;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at 65% 15%, #b5bdc8, #28343b);
+    border-radius: 50%;
+    border: 1px solid #2c3e50;
+}
+.close:active {
+  background-color: rgb(105, 94, 94);
+}
+.close img {
+  width: 30px;
+}
+
+.one-line {
+  display: inline-block;
+}
+
+.search input{
+  width: 200px;
+  background-color: buttonface;
+}
+
+.filter {
+  position:absolute;
+  right:20px;
+  top: 101px;
+}
+
+.list-tickets, .detail-ticket {
+  width: 95%;
+  margin: 10px auto;
+  min-height: 200px;
+}
+.new-ticket, .edit-ticket {
+  box-sizing: border-box;
+  width: 500px;
+  padding: 15px;
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 10px;
+  background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);
+  color: white;
+}
+
+.new-ticket input, .edit-ticket select, .new-ticket select, .select-executor select, .list-tickets select{
+  width:154px;
+  box-sizing: border-box;
+  padding: 5px 5px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.new-ticket textarea {
+  width: 464px;
+}
+.new-ticket input[type="submit"], .edit-ticket input[type="submit"] {
+  margin-left: 158px;
+}
+
+.new-ticket, .edit-ticket{
+  position:absolute;
+  top: 50%;
+  margin-top: -100px;
+  left: 50%;
+  margin-left: -250px;
+}
+.edit-ticket {
+  margin-top: -140px;
+}
+ .new-ticket {
+   margin-top: -190px;
+ }
+ .select-executor {
+   width: 310px;
+   height: 190px;
+ }
+.select-executor select {
+   width:100%;
+ }
+ .select-executor input {
+   margin-left: 60px;
+ }
+ #openCreateComment {
+   position:absolute;
+   left:50%;
+   margin-left: -75px;
+   bottom: -10px;
+ }
+ .detail-ticket .description h2, .detail-ticket .comments h2 {
+   box-sizing: border-box;
+   margin-bottom: 0px;
+   background: #2c3e50;
+   width: 100%;
+   color:white;
+   text-align: center;
+   padding:10px 0;
+   border: 1px solid white;
+   position:absolute;
+   top: 0;
+   left:0;
+ }
+
+ .detail-ticket .description, .comments{
+   position: relative;
+   padding: 60px 20px 0;
+   background-color: white;
+   min-height: 60px;
+   color: black;
+ }
+.detail-ticket {
+  position:relative;
+  padding-bottom: 50px;
+}
+.detail-ticket .comments {
+  padding-top: 70px;
+  border-bottom: 1px solid white;
+}
+.detail-ticket .comments .comment {
+  min-height: 50px;
+}
+.detail-ticket .comments .comment h3 {
+  background-color: #B5BDC8;
+  margin:0;
+  padding-left: 5px;
+}
+.detail-ticket .comments .comment div {
+  padding: 5px;
+}
+.new-comment {
+  position: relative;
+  width: 400px;
+  margin:0 auto 15px;
+  padding: 15px;
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 10px;
+  background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);
+  color: white;
+}
+.new-comment h3 {
+    font-size: 30px;
+    margin: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.new-comment textarea {
+  width: 394px;
+}
+.new-comment input {
+  margin: 0px 125px;
+}
+.edit-ticket select, .edit-ticket input[type="date"], .edit-ticket input[type="number"], .edit-ticket input[type="text"] {
+  margin-right: 5px;
+  width: 227px;
 }

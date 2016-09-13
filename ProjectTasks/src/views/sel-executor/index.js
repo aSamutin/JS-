@@ -4,6 +4,7 @@ var config = require('../../app.config');
 var inherit = require('../../utils/inherit');
 var request = require('../../services/request');
 var _ = require('lodash');
+var $ = require('jquery/dist/jquery');
 var template = require('./sel-executor.ejs');
 
 var users = [];
@@ -22,13 +23,22 @@ inherit(ExecutorSelView, View);
 
 ExecutorSelView.prototype.render = function () {
     var data = this.getRenderData();
-    this.el.html(this.template(data));
+    this.popup.addClass('on');
+    this.popup.html(this.template(data));
 };
 
 ExecutorSelView.prototype.createEvents = function () {
-    this.el.on('click', '#selectExecutor', this.selectExecutor);
+    this.popup.on('click', '#selectExecutor', this.selectExecutor);
+    this.popup.on('click', '.close', this.closePopup);
 
 };
+
+ExecutorSelView.prototype.closePopup = function(){
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
+};
+
 ExecutorSelView.prototype.selectExecutor = function(){
     var executor =(_.find(users, {'login':this.form.executors.value}));
     if (!(+ticket.clientId)){
@@ -40,7 +50,10 @@ ExecutorSelView.prototype.selectExecutor = function(){
     request.editTicket(ticket);
     config.user.ticketId = config.user.ticketId;
     // router.navigate('task-list');
-    location.hash = 'task-list';
+    // location.hash = 'task-list';
+    $('#popup div').fadeOut();
+    $('#popup').removeClass('on');
+    window.history.go(-1);
 };
 
 ExecutorSelView.prototype.getRenderData = function () {

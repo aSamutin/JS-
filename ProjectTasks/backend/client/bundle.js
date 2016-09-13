@@ -101,7 +101,7 @@
 	
 	
 	// module
-	exports.push([module.id, "form, .list-tickets, .detail-ticket, .comment{\n    margin: 10px auto;\n    padding: 20px;\n    width: 500px;\n    border-radius: 10px;\n    box-shadow: 0 0 10px #ccc;\n}\nform[name=\"authorization\"]{\n  margin-top: 200px;\n}\nform[name=\"search\"]{\n  width: 30%;\n  float: right;\n}\nform[name=\"filter\"]{\n  width: 60%;\n  float: left;  \n}\n .comment {\n   margin: 10px auto;\n}\n.new-comment {\n  margin-top: 10px;\n}\n.list-tickets, .detail-ticket {\n  width: 95%;\n  margin: 10px auto;\n  min-height: 200px;\n}\n\nh2 {\n    text-align: center;\n    margin:0 0 10px 0;\n}\n\nlabel {\n    display: block;\n    margin-bottom: 5px;\n}\n\ninput[type=\"text\"], select, input[type=\"date\"], input[type=\"number\"] {\n    margin-bottom: 10px;\n    padding: 2px 5px;\n    width: 95%;\n    height: 24px;\n    border: 1px solid #ccc;\n    border-radius: 5px;\n}\ntextarea {\n  width: 95%;\n  padding: 5px;\n  margin-bottom: 10px;\n}\n\ninput[type=\"submit\"] {\n    display: inline-block;\n    margin: 0;\n    padding: 6px 15px;\n    width: auto;\n    border: none;\n    border-radius: 5px;\n    background: #2c3e50;\n    color: #fff;\n\n}\n\n.half-width {\n    display: inline-block;\n    margin-right: -4px;\n    width: 50%;\n}\n\n.half-width input,\n.half-width select {\n    width: 80%;\n}\n.list-tickets, .detail-ticket, .new-ticket, .new-comment,\n.registration, .registration-executor, .select-executor, .edit-ticket {\n   display: block;\n}\n.list-tickets {\n  margin: 20px auto;\n  width: 90%;\n}\ntable {\n  width: 100%;\n  border-collapse: collapse;\n  margin-bottom: 20px;\n}\ntable tr, table th, table td {\n  border: 1px solid;\n  padding: 5px;\n}\ntable th {\n  background: #2c3e50;\n  color: #fff;\n}\n.message {\n  width: 100%;\n  text-align: center;\n}\n#openCreateComment, #addTicket {\n   margin: 10px 43%;\n}\n", ""]);
+	exports.push([module.id, "body {\n  margin:0;\n  padding:0;\n  background: url('/image/bk.jpg');\n}\n#app {\n  min-width: 1225px;\n}\n\n#popup.on{\n    position:absolute;\n    left:0;\n    top:0;\n    width:100%;\n    height: 100%;\n    background: rgba(0,0,0,0.8);\n}\n\n.authorization, .registration, .registration-executor, .select-executor {\n  box-sizing: border-box;\n  width: 300px;\n  height: 212px;\n  position:absolute;\n  top: 50%;\n  left: 50%;\n  margin: -150px 0 0 -150px;\n  padding: 15px;\n  box-shadow: 0 0 10px #ccc;\n  border-radius: 10px;\n  background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);\n  color: white;\n}\n\n h2 {\n  font-size: 30px;\n  text-align: left;\n  margin: 0 0 20px;\n}\n\ninput {\n  box-sizing: border-box;\n  padding: 5px 5px;\n  width: 100%;\n  height: 32px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  margin-bottom: 20px;\n}\n\n.authorization input[type=\"submit\"] {\n    position:absolute;\n    left: 50%;\n    margin-left: -75px;\n    margin-top: 2px;\n}\n.registration  input[type=\"submit\"],\n.registration-executor input[type=\"submit\"] {\n    position:absolute;\n    left: 50%;\n    margin-left: -75px;\n    bottom: 25px;\n}\n\n.authorization input[type=\"submit\"]:last-of-type {\n  bottom: -5px;\n}\n\n.valid.error::after {\n  background-color: red;\n  content:'\\41D\\435\\43F\\440\\430\\432\\438\\43B\\44C\\43D\\44B\\439   \\43B\\43E\\433\\438\\43D';\n  margin-top: -56px;\n  margin-left: -4px;\n  padding-top: 36px;\n  text-align: center;\n  width: 278px;\n  display: block;\n}\n\ninput[type=\"submit\"] {\n  color: white;\n  width: 150px;\n  background: linear-gradient(to top, #b5bdc8 0%, #828c95 1%, #28343b 100%);\n  border-radius: 5px;\n}\n\n.list-tickets, .detail-ticket {\n    color: white;\n    margin: 10px auto;\n    padding: 20px;\n    width: 500px;\n    border-radius: 10px;\n    box-shadow: 0 0 2px #ccc;\n    background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);\n}\n.list-tickets input, .detail-ticket input {\n  margin-right: 15px;\n}\n.list-tickets, .detail-ticket {\n  margin: 20px auto;\n  width: 90%;\n  position: relative;\n}\n.welcome {\n    float:right;\n    color: white;\n}\n.welcome i {\n  margin-right:10px;\n}\n.operations {\n  border-bottom: 1px ridge white;\n  margin-bottom: 16px;\n}\n.half-width {\n    display: inline-block;\n}\n\ntable {\n  width: 100%;\n  border-collapse: collapse;\n  margin-bottom: 20px;\n}\ntable h2 {\n  margin: 0px;\n}\ntable caption {\n  padding: 10px;\n  background: #2c3e50;\n  border: 1px solid white;\n  border-bottom: none;\n  padding-left:18%;\n}\n.detail-ticket table caption {\n  padding-left: 10px;\n}\n.detail-ticket table caption h2{\n  text-align: center;\n}\ntable tr, table th, table td {\n  border: 1px solid white;\n  padding: 15px;\n}\ntable th {\n  background: #2c3e50;\n  color: #fff;\n}\ntable td {\n  color: black;\n}\n\ntable tbody tr:nth-of-type(2n){\n  background-color: rgba(102, 103, 110, 0.32);\n}\ntable tbody tr:hover {\n  background-color: rgba(44, 62, 80, 0.68);\n}\n\n.close {\n    position: absolute;\n    top: -9px;\n    right: -18px;\n    width: 30px;\n    height: 30px;\n    background: radial-gradient(circle at 65% 15%, #b5bdc8, #28343b);\n    border-radius: 50%;\n    border: 1px solid #2c3e50;\n}\n.close:active {\n  background-color: rgb(105, 94, 94);\n}\n.close img {\n  width: 30px;\n}\n\n.one-line {\n  display: inline-block;\n}\n\n.search input{\n  width: 200px;\n  background-color: buttonface;\n}\n\n.filter {\n  position:absolute;\n  right:20px;\n  top: 101px;\n}\n\n.list-tickets, .detail-ticket {\n  width: 95%;\n  margin: 10px auto;\n  min-height: 200px;\n}\n.new-ticket, .edit-ticket {\n  box-sizing: border-box;\n  width: 500px;\n  padding: 15px;\n  box-shadow: 0 0 10px #ccc;\n  border-radius: 10px;\n  background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);\n  color: white;\n}\n\n.new-ticket input, .edit-ticket select, .new-ticket select, .select-executor select, .list-tickets select{\n  width:154px;\n  box-sizing: border-box;\n  padding: 5px 5px;\n  height: 32px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  margin-bottom: 20px;\n}\n.new-ticket textarea {\n  width: 464px;\n}\n.new-ticket input[type=\"submit\"], .edit-ticket input[type=\"submit\"] {\n  margin-left: 158px;\n}\n\n.new-ticket, .edit-ticket{\n  position:absolute;\n  top: 50%;\n  margin-top: -100px;\n  left: 50%;\n  margin-left: -250px;\n}\n.edit-ticket {\n  margin-top: -140px;\n}\n .new-ticket {\n   margin-top: -190px;\n }\n .select-executor {\n   width: 310px;\n   height: 190px;\n }\n.select-executor select {\n   width:100%;\n }\n .select-executor input {\n   margin-left: 60px;\n }\n #openCreateComment {\n   position:absolute;\n   left:50%;\n   margin-left: -75px;\n   bottom: -10px;\n }\n .detail-ticket .description h2, .detail-ticket .comments h2 {\n   box-sizing: border-box;\n   margin-bottom: 0px;\n   background: #2c3e50;\n   width: 100%;\n   color:white;\n   text-align: center;\n   padding:10px 0;\n   border: 1px solid white;\n   position:absolute;\n   top: 0;\n   left:0;\n }\n\n .detail-ticket .description, .comments{\n   position: relative;\n   padding: 60px 20px 0;\n   background-color: white;\n   min-height: 60px;\n   color: black;\n }\n.detail-ticket {\n  position:relative;\n  padding-bottom: 50px;\n}\n.detail-ticket .comments {\n  padding-top: 70px;\n  border-bottom: 1px solid white;\n}\n.detail-ticket .comments .comment {\n  min-height: 50px;\n}\n.detail-ticket .comments .comment h3 {\n  background-color: #B5BDC8;\n  margin:0;\n  padding-left: 5px;\n}\n.detail-ticket .comments .comment div {\n  padding: 5px;\n}\n.new-comment {\n  position: relative;\n  width: 400px;\n  margin:0 auto 15px;\n  padding: 15px;\n  box-shadow: 0 0 10px #ccc;\n  border-radius: 10px;\n  background: linear-gradient(to top, #b5bdc8 0%, #828c95 36%, #28343b 100%);\n  color: white;\n}\n.new-comment h3 {\n    font-size: 30px;\n    margin: 0;\n    margin-bottom: 15px;\n    text-align: center;\n}\n.new-comment textarea {\n  width: 394px;\n}\n.new-comment input {\n  margin: 0px 125px;\n}\n.edit-ticket select, .edit-ticket input[type=\"date\"], .edit-ticket input[type=\"number\"], .edit-ticket input[type=\"text\"] {\n  margin-right: 5px;\n  width: 227px;\n}\n", ""]);
 	
 	// exports
 
@@ -446,9 +446,6 @@
 	    var path = (Hash).substring(1);
 	    if ((path === 'task')||(path === 'task-edit')||(path === 'sel-executor')) {
 	        Router.navigate(path, config.ticket);
-	    } else if ((path === 'task-list')&&(config.keySortTicket != null)) {
-	        Router.navigate(path, config.keySortTicket);
-	        config.keySortTicket = null;
 	    } else {
 	        Router.navigate(path);
 	    }
@@ -468,9 +465,9 @@
 	    role: null,
 	    tickets: null,
 	    ticket: null,
-	    keySortTicket: null,
 	    currentPage: {},
 	    appElement: $('#app'),
+	    popupElement: $('#popup'),
 	    timing: 200
 	};
 
@@ -10577,6 +10574,7 @@
 	inherit(AuthView, View);
 	
 	AuthView.prototype.render = function () {
+	    history.pushState({}, 'Авторизация', '/#auth');
 	    this.el.html(this.template);
 	};
 	
@@ -10613,7 +10611,10 @@
 	            //  router.navigate('task-list');
 	            location.hash = 'task-list';
 	        } else {
-	            alert('Пользователь не найден');
+	            $('.valid').addClass('error');
+	            setTimeout(function(){
+	                $('.valid').removeClass('error');
+	            },5000);
 	        }
 	    });
 	};
@@ -10636,6 +10637,7 @@
 	 */
 	function View () {
 	    this.el = config.appElement;
+	    this.popup = config.popupElement;
 	    this.createEvents();
 	}
 	
@@ -10773,7 +10775,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="authorization">\n  <form action="javascript:void(0);" method="get" name="authorization">\n    <h2>Авторизация</h2>\n    <label>Пользователь<br>\n        <input type="text" name="username" placeholder="Логин">\n    </label>\n    <input type="submit" id="entry" value="Войти">\n    <input type="submit" id="openRegistration" value="Зарегистрироваться">\n  </form>\n</div>\n';
+	__p += '<div class="authorization">\n  <form action="javascript:void(0);" method="get" name="authorization">\n    <h2>Вход</h2>\n    <div class="valid">\n      <input type="text" name="username" placeholder="Логин">\n    </div>\n    <input type="submit" id="entry" value="Войти">\n    <input type="submit" id="openRegistration" value="Зарегистрироваться">\n  </form>\n</div>\n';
 	
 	}
 	return __p
@@ -10785,7 +10787,7 @@
 
 	var View = __webpack_require__(9);
 	var config = __webpack_require__(6);
-	// var router = require('../../app.router');
+	var router = __webpack_require__(5);
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var $ = __webpack_require__(7);
@@ -10809,6 +10811,7 @@
 	inherit(TaskListView, View);
 	
 	TaskListView.prototype.render = function () {
+	    history.pushState({}, 'Список заявок', '/#task-list');
 	    var data = this.getRenderData();
 	    this.el.html(this.template(data));
 	    switch (config.user.role) {
@@ -10830,6 +10833,7 @@
 	    this.el.on('click', '.headSort th', this.sort);
 	    this.el.on('click', '#filter', this.filter);
 	    this.el.on('click', '#find', this.find);
+	    this.el.on('click', '#exit', this.exit);
 	};
 	
 	TaskListView.prototype.sort = function(){
@@ -10846,8 +10850,12 @@
 	    };
 	    var key = hTable[this.innerHTML];
 	    config.keySortTicket = key;
-	    // router.navigate('task-list', key);
-	    location.hash = 'task-list';
+	    router.navigate('task-list', key);
+	    // location.hash = 'task-list';
+	};
+	
+	TaskListView.prototype.exit = function(){
+	    location.hash = 'auth';
 	};
 	
 	TaskListView.prototype.filter = function(){
@@ -10862,7 +10870,7 @@
 	        filterTickets = _.filter(tickets, {clientId:this.form.client.value, status:this.form.status.value});
 	    }
 	
-	    $('#app').html(template({list:filterTickets, usersList:users}));
+	    $('#app').html(template({list:filterTickets, usersList:users, user: config.user.login}));
 	    $('select[name="client"]').val(this.form.client.value);
 	    $('select[name="status"]').val(this.form.status.value);
 	
@@ -10885,7 +10893,7 @@
 	    if (!searchTicket[0]){
 	        searchTicket = [];
 	    }
-	    $('#app').html(template({list:searchTicket, usersList:users}));
+	    $('#app').html(template({list:searchTicket, usersList:users, user: config.user.login}));
 	
 	    switch (config.user.role) {
 	    case 'Executor':
@@ -10948,7 +10956,9 @@
 	    }
 	    return {
 	        list: tickets,
-	        usersList: this.userList
+	        usersList: this.userList,
+	        user: config.user.login
+	
 	    };
 	};
 	
@@ -27612,15 +27622,17 @@
 	var __t, __p = '', __j = Array.prototype.join;
 	function print() { __p += __j.call(arguments, '') }
 	with (obj) {
-	__p += '<div class="list-tickets">\n  <input type="submit" value="Создать исполнителя" id="openCreateExecutor">\n  <input type="submit" value="Создать заявку" id="openCreateTicket">\n  <div class="filter">\n    <form action="javascript:void(0);" method="get" name="filter">\n      <div class="half-width">\n        <label> Статус\n          <select name="status">\n            <option value="All">All</option>\n            <option value="Open">Open</option>\n            <option value="Closed">Closed</option>\n          </select>\n        </label>\n      </div>\n      <div class="half-width">\n        <label> Клиент\n          <select name="client">\n            <option value="All">All</option>\n              ';
+	__p += '<div class="list-tickets">\n  <div class="welcome">\n    <span>Здравствуйте, <i>' +
+	((__t = (user)) == null ? '' : __t) +
+	'</i></span>\n    <input type="submit" value="Выйти" id="exit">\n  </div>\n  <div class="operations">\n    <input type="submit" value="Создать исполнителя" id="openCreateExecutor" class="one-line">\n    <input type="submit" value="Создать заявку" id="openCreateTicket"  class="one-line">\n    <div class="search one-line">\n      <form action="javascript:void(0);" method="get" name="search">\n          <input type="number" name="search" placeholder="Поиск по заявкам" class="one-line">\n          <input type="submit" id="find" value="Найти" class="one-line">\n      </form>\n    </div>\n  </div>\n    <div class="filter">\n      <form action="javascript:void(0);" method="get" name="filter">\n        <div class="half-width">\n          <label> Статус\n            <select name="status">\n              <option value="All">All</option>\n              <option value="Open">Open</option>\n              <option value="Closed">Closed</option>\n            </select>\n          </label>\n        </div>\n        <div class="half-width">\n          <label> Клиент\n            <select name="client">\n              <option value="All">All</option>\n                ';
 	 for( var i = 0; i < usersList.length; i++) {;
-	__p += '\n                  <option value="' +
+	__p += '\n                    <option value="' +
 	((__t = (usersList[i])) == null ? '' : __t) +
 	'">' +
 	((__t = (usersList[i])) == null ? '' : __t) +
-	'</option>\n              ';
+	'</option>\n                ';
 	 }; ;
-	__p += '\n          </select>\n        </label>\n      </div>\n      <input type="submit" value="Показать" id="filter">\n    </form>\n  </div>\n\n  <div class="search">\n    <form action="javascript:void(0);" method="get" name="search">\n      <input type="number" name="search" placeholder="поиск по заявкам">\n      <input type="submit" id="find" value="Найти">\n    </form>\n  </div>\n  <div class="filterForm"></div>\n    <table>\n        <caption><h2>Список заявок</h2><caption>\n        <thead>\n            <tr class="headSort">\n                <th>Номер заявки</th>\n                <th>Клиент</th>\n                <th>Исполнитель</th>\n                <th>Описание</th>\n                <th>Приоритет</th>\n                <th>Estimated</th>\n                <th>Deadline</th>\n                <th>Готовность(%)</th>\n                <th>Статус</th>\n            </tr>\n        </thead>\n        <tbody>\n           ';
+	__p += '\n            </select>\n          </label>\n        </div>\n        <input type="submit" value="Показать" id="filter">\n      </form>\n    </div>\n    <table>\n        <caption><h2>Список заявок</h2></caption>\n        <thead>\n            <tr class="headSort">\n                <th>Номер заявки</th>\n                <th>Клиент</th>\n                <th>Исполнитель</th>\n                <th>Описание</th>\n                <th>Приоритет</th>\n                <th>Estimated</th>\n                <th>Deadline</th>\n                <th>Готовность(%)</th>\n                <th>Статус</th>\n            </tr>\n        </thead>\n        <tbody>\n           ';
 	 if (list.length != 0) {;
 	__p += '\n             ';
 	 for( var i = 0; i < list.length; i++) {;
@@ -27697,6 +27709,7 @@
 	    this.el.on('click', '#openSelectExecutor', this.openSelectExecutor);
 	    this.el.on('click', '#openCreateComment', this.openCreateComment);
 	    this.el.on('click', '#addComment', this.addComment);
+	    this.el.on('click', '#exit', this.exit);
 	};
 	
 	TaskView.prototype.openEditTask = function(){
@@ -27744,6 +27757,7 @@
 	};
 	
 	TaskView.prototype.render = function (){
+	    history.pushState({}, 'Просмотр заявки', '/#task');
 	    var data = this.getRenderData();
 	    this.el.html(this.template(data));
 	
@@ -27771,8 +27785,13 @@
 	    }
 	    return {
 	        ticket: ticket,
-	        comment: this.taskComments
+	        comment: this.taskComments,
+	        user: config.user.login
 	    };
+	};
+	
+	TaskView.prototype.exit = function(){
+	    location.hash = 'auth';
 	};
 	
 	TaskView.prototype.fetchData = function () {
@@ -27805,14 +27824,14 @@
 	var __t, __p = '', __j = Array.prototype.join;
 	function print() { __p += __j.call(arguments, '') }
 	with (obj) {
-	__p += '<div class="detail-ticket">  \n  <input type="submit" value="Назначить исполнителя" id="openSelectExecutor">\n  <input type="submit" value="Изменить заявку" id="openEditTicket">\n  <table>\n    <caption><h2>Заявка № <span>' +
+	__p += '<div class="detail-ticket">\n  <div class="welcome">\n    <span>Здравствуйте, <i>' +
+	((__t = (user)) == null ? '' : __t) +
+	'</i></span>\n    <input type="submit" value="Выйти" id="exit">\n  </div>\n  <input type="submit" value="Назначить исполнителя" id="openSelectExecutor">\n  <input type="submit" value="Изменить заявку" id="openEditTicket">\n  <table>\n    <caption><h2>Заявка № <span>' +
 	((__t = (ticket.id)) == null ? '' : __t) +
-	'</span></h2><caption>\n    <thead>\n    <tr>\n        <th>Клиент</th>\n        <th>Исполнитель</th>\n        <th>Описание</th>\n        <th>Приоритет</th>\n        <th>Estimated</th>\n        <th>Deadline</th>\n        <th>Готовность (%)</th>\n        <th>Статус</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>\n          ' +
+	'</span></h2></caption>\n    <thead>\n    <tr>\n        <th>Клиент</th>\n        <th>Исполнитель</th>\n        <th>Приоритет</th>\n        <th>Estimated</th>\n        <th>Deadline</th>\n        <th>Готовность (%)</th>\n        <th>Статус</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>\n          ' +
 	((__t = (ticket.clientId)) == null ? '' : __t) +
 	'\n        </td>\n        <td>\n          ' +
 	((__t = (ticket.executorId)) == null ? '' : __t) +
-	'\n        </td>\n        <td>\n          ' +
-	((__t = (ticket.description)) == null ? '' : __t) +
 	'\n        </td>\n        <td>\n          ' +
 	((__t = (ticket.priority)) == null ? '' : __t) +
 	'\n        </td>\n        <td>\n          ' +
@@ -27823,7 +27842,9 @@
 	((__t = (ticket.percentReady)) == null ? '' : __t) +
 	'\n        </td>\n        <td>\n          ' +
 	((__t = (ticket.status)) == null ? '' : __t) +
-	'\n        </td>\n      </tr> \n    </tbody>\n    </table> \n    <div class="comments">\n      <h2>Комментарии</h2>\n      ';
+	'\n        </td>\n      </tr>\n    </tbody>\n    </table>\n    <div class="description">\n      <h2>Описание</h2>\n      ' +
+	((__t = (ticket.description)) == null ? '' : __t) +
+	'\n    </div>\n    <div class="comments">\n      <h2>Комментарии</h2>\n      ';
 	 for( var i = comment.length-1; i >= 0  ; i--) {;
 	__p += '\n        <div class="comment">\n            <h3>' +
 	((__t = (comment[i].userId)) == null ? '' : __t) +
@@ -27831,7 +27852,7 @@
 	((__t = (comment[i].text)) == null ? '' : __t) +
 	'</div>\n        </div>\n      ';
 	 }; ;
-	__p += '\n    </div>\n    <input type="submit" value="Добавить комментарий" id="openCreateComment">\n</div>';
+	__p += '\n    </div>\n    <input type="submit" value="Добавить комментарий" id="openCreateComment">\n</div>\n';
 	
 	}
 	return __p
@@ -27845,7 +27866,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="new-comment">\n      <form action="javascript:void(0);" method="get" name="new-comment" >\n        <h2>Добавление комментария</h2>\n        <label>Комментарий\n            <textarea name="comment" rows="5" placeholder="Текст сообщения"></textarea>\n        </label>\n        <input type="submit" value="Добавить" id="addComment">\n      </form>\n</div> \n';
+	__p += '<div class="new-comment">\n      <form action="javascript:void(0);" method="get" name="new-comment" >\n        <h3>Добавление комментария</h3>\n        <label>Комментарий\n            <textarea name="comment" rows="5" placeholder="Текст сообщения"></textarea>\n        </label>\n        <input type="submit" value="Добавить" id="addComment">\n      </form>\n</div>\n';
 	
 	}
 	return __p
@@ -27898,14 +27919,23 @@
 	
 	TaskCreateView.prototype.render = function () {
 	    var data = this.getRenderData();
-	    this.el.html(this.template(data));
+	    this.popup.addClass('on');
+	    this.popup.html(this.template(data));
 	    $('input[name = "deadline"]').val((new Date().toISOString()).slice(0, 10));
 	    flagCreateTicket = false;
 	};
 	
 	TaskCreateView.prototype.createEvents = function () {
-	    this.el.on('click', '#addTicket', this.addTicket);
+	    this.popup.on('click', '#addTicket', this.addTicket);
+	    this.popup.on('click', '.close', this.closePopup);
 	};
+	
+	TaskCreateView.prototype.closePopup = function(){
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
+	};
+	
 	TaskCreateView.prototype.addTicket = function(){
 	    if(!flagCreateTicket){
 	        var client =(_.filter(users, {'login': this.form.client.value}))[0];
@@ -27931,7 +27961,11 @@
 	        flagCreateTicket = true;
 	    }
 	    // router.navigate('task-list');
-	    location.hash = 'task-list';
+	    // location.hash = 'task-list';
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	
+	    window.history.go(-1);
 	};
 	
 	
@@ -27966,7 +28000,7 @@
 	var __t, __p = '', __j = Array.prototype.join;
 	function print() { __p += __j.call(arguments, '') }
 	with (obj) {
-	__p += '<div class="new-ticket">\n<form action="javascript:void(0);" method="get" name="new-ticket">\n        <h2>Создание заявки</h2>\n        <label> Клиент\n          <select name="client">\n            ';
+	__p += '<div class="new-ticket">\n  <div class="close">\n    <img src="/image/close.png">\n  </div>\n<form action="javascript:void(0);" method="get" name="new-ticket">\n        <h2>Создание заявки</h2>\n        <label class="half-width"> Клиент<br>\n          <select name="client">\n            ';
 	 for( var i = 0; i < usersList.length; i++) {;
 	__p += '\n                <option value="' +
 	((__t = (usersList[i])) == null ? '' : __t) +
@@ -27974,7 +28008,7 @@
 	((__t = (usersList[i])) == null ? '' : __t) +
 	'</option>\n            ';
 	 }; ;
-	__p += '\n          </select>\n        </label>\n        <label>Описание\n          <textarea name="details" rows="5"></textarea>\n        </label>\n        <label> Приоритет\n          <select name="priority">\n            <option value="High">High</option>\n            <option selected value="Medium">Medium</option>\n            <option value="Low">Low</option>\n          </select>\n        </label>\n        <label>Estimated\n          <input type="text" name="estimated">\n        </label>\n        <div class="half-width">\n          <label>deadline\n            <input type="date" name="deadline">\n          </label>\n        </div>\n        <div class="half-width">\n          <label>готовность (%)\n            <input type="number" name="percent" max="100" min="0" step="1" value="0">\n          </label>\n        </div>\n        <label> Статус\n          <select name="status">\n            <option value="Open">Open</option>\n            <option value="Closed">Closed</option>\n          </select>\n        </label>\n        <input type="submit" value="Создать" id="addTicket">\n</form> \n</div>';
+	__p += '\n          </select>\n        </label>\n        <label class="half-width"> Приоритет<br>\n          <select name="priority">\n            <option value="High">High</option>\n            <option selected value="Medium">Medium</option>\n            <option value="Low">Low</option>\n          </select>\n        </label>\n        <label class="half-width">Статус<br>\n          <select name="status">\n            <option value="Open">Open</option>\n            <option value="Closed">Closed</option>\n          </select>\n        </label>\n        <label>Описание<br>\n          <textarea name="details" rows="5"></textarea>\n        </label>\n        <label class="half-width">готовность (%)<br>\n          <input type="number" name="percent" max="100" min="0" step="1" value="0">\n        </label>\n        <label class="half-width">deadline<br>\n          <input type="date" name="deadline">\n        </label>\n        <label class="half-width">Estimated<br>\n          <input type="text" name="estimated">\n        </label><br>\n        <input type="submit" value="Создать" id="addTicket">\n</form>\n</div>\n';
 	
 	}
 	return __p
@@ -27989,6 +28023,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var _ = __webpack_require__(14);
+	var $ = __webpack_require__(7);
 	var template = __webpack_require__(24);
 	
 	var flagAddExecutor;
@@ -28004,10 +28039,18 @@
 	
 	ExecutorRegView.prototype.render = function () {
 	    flagAddExecutor = false;
-	    this.el.html(this.template());
+	    //this.el.html(this.template());
+	    this.popup.addClass('on');
+	    this.popup.html(this.template());
 	};
 	ExecutorRegView.prototype.createEvents = function () {
-	    this.el.on('click', '#addExecutor', this.addExecutor);
+	    this.popup.on('click', '#addExecutor', this.addExecutor);
+	    this.popup.on('click', '.close', this.closePopup);
+	};
+	ExecutorRegView.prototype.closePopup = function(){
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
 	};
 	ExecutorRegView.prototype.addExecutor = function(){
 	    if (!flagAddExecutor){
@@ -28021,7 +28064,10 @@
 	        flagAddExecutor = true;
 	    }
 	    // router.navigate('task-list');
-	    location.hash = 'task-list';
+	    // location.hash = 'task-list';
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
 	};
 	
 	ExecutorRegView.prototype.fetchData = function () {
@@ -28046,7 +28092,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="registration-executor"> \n  <form action="javascript:void(0);" method="get" name="registration-executor">\n        <h2>Регистрация исполнителя</h2>\n        <label>Логин\n          <input type="text" name="newExecutor" >\n        </label>\n        <input type="submit" id="addExecutor" value="Зарегистрировать">\n  </form>\n</div>';
+	__p += '<div class="registration-executor">\n  <div class="close">\n    <img src="/image/close.png">\n  </div>\n  <form action="javascript:void(0);" method="get" name="registration-executor">\n        <h2>Регистрация</h2>\n        <input type="text" name="newExecutor" placeholder="Логин нового исполнителя" >\n        <input type="submit" id="addExecutor" value="Зарегистрировать">\n  </form>\n</div>\n';
 	
 	}
 	return __p
@@ -28061,6 +28107,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var _ = __webpack_require__(14);
+	var $ = __webpack_require__(7);
 	var template = __webpack_require__(26);
 	
 	var flagAddClient;
@@ -28076,11 +28123,14 @@
 	
 	ClientRegView.prototype.render = function () {
 	    flagAddClient = false;
-	    this.el.html(this.template());
+	    //this.el.html(this.template());
+	    this.popup.addClass('on');
+	    this.popup.html(this.template());
 	};
 	
 	ClientRegView.prototype.createEvents = function () {
-	    this.el.on('click', '#addClient', this.addClient);
+	    this.popup.on('click', '#addClient', this.addClient);
+	    this.popup.on('click', '.close', this.closePopup);
 	};
 	ClientRegView.prototype.addClient = function(){
 	    if (!flagAddClient) {
@@ -28094,7 +28144,17 @@
 	        flagAddClient =true;
 	    }
 	    // router.navigate('auth');
-	    location.hash = 'auth';
+	    // location.hash = 'auth';
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	
+	    window.history.go(-1);
+	};
+	
+	ClientRegView.prototype.closePopup = function(){
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
 	};
 	
 	ClientRegView.prototype.fetchData = function () {
@@ -28119,7 +28179,7 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="registration">\n  <form action="javascript:void(0);" method="get" name="registration">\n        <h2>Регистрация</h2>\n        <label>Логин\n          <input type="text" name="newClient">\n        </label>\n        <input type="submit" id="addClient" value="Зарегистрироваться">\n  </form>\n</div>\n \n';
+	__p += '<div class="registration">\n  <div class="close">\n    <img src="/image/close.png">\n  </div>\n  <form action="javascript:void(0);" method="get" name="registration">\n        <h2>Регистрация</h2>\n        <input type="text" name="newClient" placeholder="Введите логин">\n        <input type="submit" id="addClient" value="Зарегистрироваться">\n  </form>\n</div>\n';
 	
 	}
 	return __p
@@ -28154,7 +28214,8 @@
 	
 	TaskEditView.prototype.render = function () {
 	    var data = this.getRenderData();
-	    this.el.html(this.template(data));
+	    this.popup.addClass('on');
+	    this.popup.html(this.template(data));
 	    if (config.user.role != 'Admin') {
 	        $('.estimated').hide();
 	        $('.deadline').hide();
@@ -28163,9 +28224,17 @@
 	
 	TaskEditView.prototype.createEvents = function () {
 	    flagSaveEdit = true;
-	    this.el.on('click', '#saveEdit', this.saveEdit);
+	    this.popup.on('click', '#saveEdit', this.saveEdit);
+	    this.popup.on('click', '.close', this.closePopup);
 	
 	};
+	
+	TaskEditView.prototype.closePopup = function(){
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
+	};
+	
 	TaskEditView.prototype.saveEdit = function(){
 	    if (flagSaveEdit) {
 	        ticket.estimated = this.form.estimated.value;
@@ -28184,7 +28253,10 @@
 	        config.user.ticketsId = config.user.ticketsId;
 	        flagSaveEdit = false;
 	        // router.navigate('task-list');
+	        $('#popup div').fadeOut();
+	        $('#popup').removeClass('on');
 	        location.hash = 'task-list';
+	        // window.history.go(-1);
 	    }
 	};
 	
@@ -28217,13 +28289,13 @@
 	obj || (obj = {});
 	var __t, __p = '';
 	with (obj) {
-	__p += '<div class="edit-ticket">\n<form action="javascript:void(0);" method="get" name="edit-ticket">\n  <h2>Изменение заявки</h2>\n  <div class="half-width">\n    <label> Статус <br>\n      <select name="status">\n        <option value="Open">Open</option>\n        <option value="Closed">Closed</option>\n      </select>\n    </label>\n  </div>\n  <div class="half-width estimated">\n    <label>Estimated\n      <input type="text" name="estimated" value=' +
+	__p += '<div class="edit-ticket">\n  <div class="close">\n    <img src="/image/close.png">\n  </div>\n<form action="javascript:void(0);" method="get" name="edit-ticket">\n  <h2>Изменение заявки</h2>\n    <label class="one-line"> Статус <br>\n      <select name="status">\n        <option value="Open">Open</option>\n        <option value="Closed">Closed</option>\n      </select>\n    </label>\n    <label class="one-line">Estimated<br>\n      <input type="text" name="estimated" value=' +
 	((__t = (ticket.estimated )) == null ? '' : __t) +
-	'>\n    </label>\n   </div>\n   <div class="half-width deadline">\n     <label>deadline\n       <input type="date" name="deadline" value="' +
+	'>\n    </label  class="one-line">\n     <label  class="one-line">deadline<br>\n       <input type="date" name="deadline" value="' +
 	((__t = (ticket.deadline )) == null ? '' : __t) +
-	'">\n     </label>\n   </div>\n   <div class="half-width percent">\n     <label>готовность (%)\n       <input type="number" name="percent" max="100" min="0" step="1" value="' +
+	'">\n     </label>\n     <label  class="one-line">готовность (%)<br>\n       <input type="number" name="percent" max="100" min="0" step="1" value="' +
 	((__t = (ticket.percentReady)) == null ? '' : __t) +
-	'">\n     </label>\n   </div>\n   <input type="submit" value="Сохранить изменения" id="saveEdit">\n</form>\n</div> \n';
+	'">\n     </label><br>\n   <input type="submit" value="Сохранить изменения" id="saveEdit">\n</form>\n</div>\n';
 	
 	}
 	return __p
@@ -28239,6 +28311,7 @@
 	var inherit = __webpack_require__(10);
 	var request = __webpack_require__(11);
 	var _ = __webpack_require__(14);
+	var $ = __webpack_require__(7);
 	var template = __webpack_require__(30);
 	
 	var users = [];
@@ -28257,13 +28330,22 @@
 	
 	ExecutorSelView.prototype.render = function () {
 	    var data = this.getRenderData();
-	    this.el.html(this.template(data));
+	    this.popup.addClass('on');
+	    this.popup.html(this.template(data));
 	};
 	
 	ExecutorSelView.prototype.createEvents = function () {
-	    this.el.on('click', '#selectExecutor', this.selectExecutor);
+	    this.popup.on('click', '#selectExecutor', this.selectExecutor);
+	    this.popup.on('click', '.close', this.closePopup);
 	
 	};
+	
+	ExecutorSelView.prototype.closePopup = function(){
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
+	};
+	
 	ExecutorSelView.prototype.selectExecutor = function(){
 	    var executor =(_.find(users, {'login':this.form.executors.value}));
 	    if (!(+ticket.clientId)){
@@ -28275,7 +28357,10 @@
 	    request.editTicket(ticket);
 	    config.user.ticketId = config.user.ticketId;
 	    // router.navigate('task-list');
-	    location.hash = 'task-list';
+	    // location.hash = 'task-list';
+	    $('#popup div').fadeOut();
+	    $('#popup').removeClass('on');
+	    window.history.go(-1);
 	};
 	
 	ExecutorSelView.prototype.getRenderData = function () {
@@ -28307,7 +28392,7 @@
 	var __t, __p = '', __j = Array.prototype.join;
 	function print() { __p += __j.call(arguments, '') }
 	with (obj) {
-	__p += '<div class="select-executor"> \n <form action="javascript:void(0);" method="get" name="select-executor">\n    <h2>Выбор исполнителя</h2>\n    <select name="executors">\n      ';
+	__p += '<div class="select-executor">\n  <div class="close">\n    <img src="/image/close.png">\n  </div>\n <form action="javascript:void(0);" method="get" name="select-executor">\n    <h2>Выбор исполнителя</h2>\n    <select name="executors">\n      ';
 	 for( var i = 0; i < usersList.length; i++) {;
 	__p += '\n         <option value="' +
 	((__t = (usersList[i])) == null ? '' : __t) +
@@ -28315,7 +28400,7 @@
 	((__t = (usersList[i])) == null ? '' : __t) +
 	'</option>\n      ';
 	 }; ;
-	__p += '\n    </select>\n    <input type="submit" id="selectExecutor" value="Выбрать">\n</form>\n</div>';
+	__p += '\n    </select>\n    <input type="submit" id="selectExecutor" value="Выбрать">\n</form>\n</div>\n';
 	
 	}
 	return __p
